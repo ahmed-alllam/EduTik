@@ -6,13 +6,13 @@ import { Feather } from '@expo/vector-icons'
 export default function ProfileNavBar({ user }) {
     return (
         <View style={styles.container}>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
                 <Feather name="search" size={20} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             <Text style={styles.text}>{user.displayName}</Text>
-            <TouchableOpacity>
+            {/* <TouchableOpacity>
                 <Feather name="menu" size={24} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     )
 }

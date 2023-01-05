@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { Avatar } from 'react-native-paper'
 import { buttonStyles } from '../../../styles'
 import styles from './styles'
@@ -23,43 +23,43 @@ export default function ProfileHeader({ user }) {
 
     const isFollowing = useFollowing(firebase.auth().currentUser.uid, user.uid).data
     const isFollowingMutation = useFollowingMutation()
-    const renderFollowButton = () => {
-        if (isFollowing) {
-            return (
-                <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity
-                        style={buttonStyles.grayOutlinedButton}
-                        onPress={() => navigation.navigate('chatSingle', { contactId: user.uid })}
-                    >
-                        <Text style={buttonStyles.grayOutlinedButtonText}>Message</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={buttonStyles.grayOutlinedIconButton}
-                        onPress={() => isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })}
+    // const renderFollowButton = () => {
+    //     if (isFollowing) {
+    //         return (
+    //             <View style={{ flexDirection: 'row' }}>
+    //                 <TouchableOpacity
+    //                     style={buttonStyles.grayOutlinedButton}
+    //                     onPress={() => navigation.navigate('chatSingle', { contactId: user.uid })}
+    //                 >
+    //                     <Text style={buttonStyles.grayOutlinedButtonText}>Message</Text>
+    //                 </TouchableOpacity>
+    //                 <TouchableOpacity
+    //                     style={buttonStyles.grayOutlinedIconButton}
+    //                     onPress={() => isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })}
 
-                    >
-                        <Feather name="user-check" size={20} />
-                    </TouchableOpacity>
-                </View>
-            )
-        } else {
-            return (
-                <TouchableOpacity
-                    style={buttonStyles.filledButton}
-                    onPress={() => isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })}
-                >
-                    <Text style={buttonStyles.filledButtonText}>Follow</Text>
-                </TouchableOpacity>
-            )
+    //                 >
+    //                     <Feather name="user-check" size={20} />
+    //                 </TouchableOpacity>
+    //             </View>
+    //         )
+    //     } else {
+    //         return (
+    //             <TouchableOpacity
+    //                 style={buttonStyles.filledButton}
+    //                 onPress={() => isFollowingMutation.mutate({ otherUserId: user.uid, isFollowing })}
+    //             >
+    //                 <Text style={buttonStyles.filledButtonText}>Follow</Text>
+    //             </TouchableOpacity>
+    //         )
 
-        }
-    }
+    //     }
+    // }
     return (
         <View style={styles.container}>
-            <Avatar.Icon size={80} icon={"account"} />
+            <Image source={{ uri: user.photoURL }} style={{height: 100, width: 100, borderRadius: 50}} />
             <Text style={styles.emailText}>{user.email}</Text>
             <View style={styles.counterContainer}>
-                <View style={styles.counterItemContainer}>
+                {/* <View style={styles.counterItemContainer}>
                     <Text style={styles.counterNumberText}>0</Text>
                     <Text style={styles.counterLabelText}>Following</Text>
                 </View>
@@ -70,7 +70,7 @@ export default function ProfileHeader({ user }) {
                 <View style={styles.counterItemContainer}>
                     <Text style={styles.counterNumberText}>0</Text>
                     <Text style={styles.counterLabelText}>Likes</Text>
-                </View>
+                </View> */}
             </View>
             {firebase.auth().currentUser.uid === user.uid ?
                 <TouchableOpacity
@@ -80,7 +80,8 @@ export default function ProfileHeader({ user }) {
                     <Text style={buttonStyles.grayOutlinedButtonText}>Edit Profile</Text>
                 </TouchableOpacity>
                 :
-                renderFollowButton()
+                // renderFollowButton()
+                null
             }
         </View>
     )

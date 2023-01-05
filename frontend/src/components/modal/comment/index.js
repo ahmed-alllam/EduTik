@@ -13,7 +13,9 @@ const CommentModal = ({ post }) => {
     const currentUser = useSelector(state => state.auth.currentUser)
 
     useEffect(() => {
-        commentListner(post.id, setCommentList)
+        commentListner(post.id, (comments) => {
+            setCommentList(comments);
+        })
         return () => clearCommentListener()
     }, [])
 

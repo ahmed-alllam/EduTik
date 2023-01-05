@@ -18,7 +18,7 @@ export default function EditProfileFieldScreen({ route }) {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <NavBarGeneral title={title} rightButton={{ display: true, name: 'save', action: onSave }} />
+            <NavBarGeneral title="Edit Profile" rightButton={{ display: true, name: 'Edit', action: onSave }} />
             <Divider />
             <View style={styles.mainContainer}>
                 <Text style={styles.title}>{title}</Text>

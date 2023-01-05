@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, ToastAndroid } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import styles from './styles'
 import { Feather } from '@expo/vector-icons'
@@ -12,21 +12,26 @@ import NavBarGeneral from '../../../components/general/navbar'
 
 export default function EditProfileScreen() {
     const auth = useSelector(state => state.auth)
+
     const navigation = useNavigation()
     const chooseImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            allowsEditing: true,
+            allowsEditing: false,
             aspect: [1, 1],
             quality: 1
         })
         if (!result.cancelled) {
-            saveUserProfileImage(result.uri)
+            saveUserProfileImage(result.uri).then(() => {
+                console.log('Image saved')
+                // ToastAndroid.show('Image saved', ToastAndroid.SHORT);
+            }
+            )
         }
     }
     return (
         <SafeAreaView style={styles.container}>
-            <NavBarGeneral />
+            <NavBarGeneral title="Edit Profile" />
             <View style={styles.imageContainer}>
                 <TouchableOpacity
                     style={styles.imageViewContainer}

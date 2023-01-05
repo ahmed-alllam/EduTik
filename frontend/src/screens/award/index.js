@@ -62,55 +62,174 @@ const AwardsScreen = () => {
     }, [])
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View colors={[, '#1da2c6', '#1695b7']}
                 style={{ backgroundColor: '#119abf', padding: 15, paddingTop: 35, alignItems: 'center' }}>
                 <Text style={{ fontSize: 25, color: 'white', }}>Leaderboard</Text>
                 <View style={{
-                    flexDirection: 'row', justifyContent: 'center', alignItems: 'center',
+                    justifyContent: 'center', alignItems: 'center',
                     marginBottom: 15, marginTop: 20
                 }}>
                     {auth && auth.currentUser ? (
                         <>
-                            <Text style={{ color: 'white', fontSize: 25, flex: 1, textAlign: 'right', marginRight: 40 }}>
-                                Rank: #{rank}
-                            </Text>
-                            <Image style={{ flex: .66, height: 60, width: 60, borderRadius: 60 / 2 }}
-                                source={{ uri: 'http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-braindead-zombie.png' }} />
-                            <Text style={{ color: 'white', fontSize: 25, flex: 1, marginLeft: 40 }}>
-                                {auth.currentUser.score} pts
-                            </Text>
+                            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                                <Image style={{ height: 100, width: 100, borderRadius: 50 }}
+                                    source={{ uri: auth.currentUser.photoURL }} />
+
+                            </View>
+
+                            <View style={{ flexDirection: 'row', marginTop: 10 }}>
+                                <Text style={{color: 'white', fontSize: 18}}>
+                                    {auth.currentUser.displayName}
+                                </Text>
+                            </View>
+
+                            <View style={{ flexDirection: 'row', marginLeft: 20, marginTop: 10 }}>
+                                <Text style={{ color: 'white', fontSize: 25, flex: 1, textAlign: 'right', marginRight: 50 }}>
+                                    Rank: #{rank}
+                                </Text>
+
+                                <Text style={{ color: 'white', fontSize: 25, flex: 1, marginLeft: 50 }}>
+                                    {auth.currentUser.score} pts
+                                </Text>
+                            </View>
                         </>
                     ) : (
-                        <Text>Log in to see your rank and receive awards</Text>
+                        <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>
+                            Log in to see your rank and receive awards</Text>
                     )}
 
                 </View>
             </View>
 
+
             <Leaderboard
-                data={data}
+                data={
+                    [
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+                        {
+                            key: 1,
+                            displayName: 'John',
+                            score: 100
+                        },
+
+                    ]
+                    .slice(0, 5)}
                 sortBy='score'
                 labelBy='displayName'
             />
 
-            <Text style={{ marginLeft: 20, fontSize: 16 }}>Post and watch short videos to earn more coins and awards</Text>
-            
+            <Text style={{ fontSize: 18, textAlign: 'center', marginTop: 30, marginBottom: 10, fontWeight: 'bold', color: '#1da2c6' }}>Post videos to redeem awards!</Text>
+
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                style={{ marginTop: 20 }}
+                style={{ marginTop: 20, marginBottom: 20 }}
             >
+                {[
+                    {
+                        key: 1,
+                        name: 'Free Coffee',
+                        description: 'Get a free coffee at any Starbucks if you have 100 points',
+                        imageUrl: 'https://img.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg?w=2000'
+                    },
+                    {
+                        key: 2,
+                        name: 'Free Pizza',
+                        description: 'Get a free pizza at any Pizza Hut if you have 200 points',
+                        imageUrl: 'https://img.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg?w=2000'
+                    },
+                    {
+                        key: 3,
+                        name: 'Free Movie',
+                        description: 'Get a free pizza at any Pizza Hut if you have 200 points',
+                        imageUrl: 'https://img.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg?w=2000'
 
-                {prizes.map(prize => (
-                    <View style={{ marginRight: 20 }}>
-                        <Image source={{ uri: prize.imageUrl }} style={{ width: 150, height: 150 }} />
-                        <Text style={{ fontSize: 16 }}>{prize.name}</Text>
-                        <Text style={{ fontSize: 16 }}>{prize.score}</Text>
+                    },
+                    {
+                        key: 4,
+                        description: 'Get a free pizza at any Pizza Hut if you have 200 points',
+                        name: 'Free Game',
+                        imageUrl: 'https://img.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg?w=2000'
+                    },
+                ].map(prize => (
+                    <View key={prize.id} style={styles.prizeContainer}>
+                        <Image source={{ uri: prize.imageUrl }} style={styles.prizeImage} />
+                        <Text style={styles.prizeName}>{prize.name}</Text>
+                        <Text style={styles.prizeDescription}>{prize.description}</Text>
                     </View>
                 ))}
             </ScrollView>
-        </View>
+        </ScrollView>
     )
 }
 
