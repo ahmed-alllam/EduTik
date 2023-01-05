@@ -104,86 +104,7 @@ const AwardsScreen = () => {
 
 
             <Leaderboard
-                data={
-                    [
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-                        {
-                            key: 1,
-                            displayName: 'John',
-                            score: 100
-                        },
-
-                    ]
-                    .slice(0, 5)}
+                data={data.slice(0, 5)}
                 sortBy='score'
                 labelBy='displayName'
             />
@@ -195,33 +116,7 @@ const AwardsScreen = () => {
                 showsHorizontalScrollIndicator={false}
                 style={{ marginTop: 20, marginBottom: 20 }}
             >
-                {[
-                    {
-                        key: 1,
-                        name: 'Free Coffee',
-                        description: 'Get a free coffee at any Starbucks if you have 100 points',
-                        imageUrl: 'https://img.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg?w=2000'
-                    },
-                    {
-                        key: 2,
-                        name: 'Free Pizza',
-                        description: 'Get a free pizza at any Pizza Hut if you have 200 points',
-                        imageUrl: 'https://img.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg?w=2000'
-                    },
-                    {
-                        key: 3,
-                        name: 'Free Movie',
-                        description: 'Get a free pizza at any Pizza Hut if you have 200 points',
-                        imageUrl: 'https://img.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg?w=2000'
-
-                    },
-                    {
-                        key: 4,
-                        description: 'Get a free pizza at any Pizza Hut if you have 200 points',
-                        name: 'Free Game',
-                        imageUrl: 'https://img.freepik.com/free-photo/top-view-pepperoni-pizza-sliced-into-six-slices_141793-2157.jpg?w=2000'
-                    },
-                ].map(prize => (
+                {prizes.map(prize => (
                     <View key={prize.id} style={styles.prizeContainer}>
                         <Image source={{ uri: prize.imageUrl }} style={styles.prizeImage} />
                         <Text style={styles.prizeName}>{prize.name}</Text>

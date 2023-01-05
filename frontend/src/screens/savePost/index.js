@@ -1,10 +1,13 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
+import { Alert } from 'react-native';
 import { ActivityIndicator, Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles'
 import { Feather } from '@expo/vector-icons'
 import { useDispatch } from 'react-redux'
 import { createPost } from '../../redux/actions'
+import firebase from 'firebase'
+import { Ionicons } from '@expo/vector-icons';
 
 export default function SavePostScreen(props) {
     const [description, setDescription] = useState('')
@@ -16,7 +19,30 @@ export default function SavePostScreen(props) {
         setRequestRunning(true)
         dispatch(createPost(description, props.route.params.source, props.route.params.sourceThumb))
             .then(() => navigation.dispatch(StackActions.popToTop()))
-            .catch(() => setRequestRunning(false))
+            .then(() => {
+                Alert.alert(
+                    'Congratulations',
+                    'Your video has been uploaded and is under review.\n\nYou have received a 10 points reward!',
+                    [{ text: 'Great!' }],
+                );
+            })
+            .then(() => {
+                // update user points
+                firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            const points = doc.data().score + 10;
+                            firebase.firestore().collection('user').doc(firebase.auth().currentUser.uid).update({
+                                score: points
+                            })
+                        }
+                    }
+                    )
+            })
+            .catch((err) => {
+                console.log(err)
+                setRequestRunning(false)
+            })
     }
 
     if (requestRunning) {

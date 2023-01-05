@@ -1,5 +1,13 @@
 import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
+    alertText: {
+        color: '#00FF00',
+        fontSize: 20,
+        fontWeight: 'bold',
+      },
+      alertIcon: {
+        marginBottom: 10,
+      },
     container: {
         flex: 1,
         paddingTop: 30,
