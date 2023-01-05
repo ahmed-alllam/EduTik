@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
         zIndex: 999,
         bottom: 0,
         paddingLeft: 20,
-        paddingBottom: 20,
+        paddingBottom: 40,
         paddingRight: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
