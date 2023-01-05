@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "frontend",
+    "slug": "frontend",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyCRzDH6m4V_hQTE5-O3BlKzpFXsnHiTezc",
+          "authDomain": "edutik-930c1.firebaseapp.com",
+          "databaseURL": "https://edutik-930c1-default-rtdb.firebaseio.com",
+          "projectId": "edutik-930c1",
+          "storageBucket": "edutik-930c1.appspot.com",
+          "messagingSenderId": "589464504311",
+          "appId": "1:589464504311:web:2cb2e276b90909aacdd0f2",
+          "measurementId": "G-HHWZNQBR6Z"
+        }
+      }
+    }
+  }
+}
