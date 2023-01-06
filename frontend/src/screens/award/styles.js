@@ -44,6 +44,13 @@ const styles = StyleSheet.create({
         marginRight: 20,
         marginBottom: 16,
       },
+      createAccountButton: {
+        flexDirection: 'row',
+        backgroundColor: '#1da2c6',
+        color: 'white',
+        borderRadius: 10,
+        padding: 20,
+    }
 });
 
 export default styles;

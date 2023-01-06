@@ -9,22 +9,18 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { CurrentUserProfileItemInViewContext } from '../../navigation/feed'
 import { useUser } from '../../hooks/useUser'
 import { getPostsByUserId } from '../../services/posts'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Feather } from '@expo/vector-icons';
 
 
 export default function ProfileScreen({ navigation, route }) {
     const { initialUserId } = route.params
     const [userPosts, setUserPosts] = useState([])
+    const currentUserObj = useSelector(state => state.auth);
+    let userID = '';
 
     const goToAuth = () => {
         navigation.navigate('Auth')
-    }
-
-    if (!initialUserId) {
-        return (
-            <SafeAreaView style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Button title="Create an account to post videos" onPress={goToAuth} />
-            </SafeAreaView>
-        )
     }
 
     let providerUserId = null
@@ -32,10 +28,17 @@ export default function ProfileScreen({ navigation, route }) {
         providerUserId = useContext(CurrentUserProfileItemInViewContext)
     }
 
-    const user = useUser(initialUserId ? initialUserId : providerUserId).data;
-    console.log("allam 2 ", initialUserId, providerUserId, useUser(initialUserId ? initialUserId : providerUserId))
+    if (initialUserId) {
+        userID = initialUserId
+    } else if (providerUserId) {
+        userID = providerUserId
+    } else if (currentUserObj && currentUserObj.currentUser) {
+        userID = currentUserObj.currentUser.uid
+    }
+
+    const user = useUser(userID).data;
     useEffect(() => {
-        if (user === undefined) {
+        if (user === undefined || user === null) {
             return;
         }
         getPostsByUserId(user.uid).then(setUserPosts)
@@ -44,17 +47,24 @@ export default function ProfileScreen({ navigation, route }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <ProfileNavBar user={user} />
-            <ScrollView>
-                {user ?
-                    (
-                        <View>
-                            <ProfileHeader user={user} />
-                            <ProfilePostList posts={userPosts} />
-                        </View>
-                    )
-                    : null}
-            </ScrollView>
+            {user ?
+                (
+                    <SafeAreaView>
+                        <ProfileNavBar user={user} />
+                        <ScrollView>
+                            <View>
+                                <ProfileHeader user={user} />
+                                <ProfilePostList posts={userPosts} />
+                            </View>
+                        </ScrollView>
+                    </SafeAreaView>)
+                : (<SafeAreaView style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={goToAuth} style={styles.createAccountButton} >
+                        <Feather name="user-plus" size={24} color="white" />
+                        <Text style={{ color: 'white', fontSize: 18, textAlign: 'center', marginLeft: 15}}>Create a free account</Text>
+                    </TouchableOpacity>
+                </SafeAreaView>
+                )}
         </SafeAreaView>
     )
 }

@@ -23,8 +23,6 @@ const EmptyScreen = () => {
 export default function HomeScreen() {
     useChats();
 
-    const currentUserObj = useSelector(state => state.auth);
-
     return (
         <Tab.Navigator
             barStyle={{ backgroundColor: 'black' }}
@@ -72,7 +70,7 @@ export default function HomeScreen() {
                         <Feather name="user" size={24} color={color} />
                     )
                 }}
-                initialParams={{ initialUserId: firebase.auth().currentUser ? firebase.auth().currentUser.uid : null}}
+                initialParams={{ initialUserId: null}}
             />
         </Tab.Navigator>
 

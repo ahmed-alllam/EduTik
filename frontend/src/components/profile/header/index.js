@@ -78,7 +78,7 @@ export default function ProfileHeader({ user }) {
                 </View>
             </View>
 
-            {firebase.auth().currentUser.uid === user.uid ?
+            {firebase.auth().currentUser && firebase.auth().currentUser.uid === user.uid ?
                 <TouchableOpacity
                     style={buttonStyles.grayOutlinedButton}
                     onPress={() => navigation.navigate('editProfile')}

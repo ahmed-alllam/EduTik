@@ -55,6 +55,13 @@ const styles = StyleSheet.create({
     sideBarButton: {
         alignItems: 'center',
         marginBottom: 25
+    },
+    createAccountButton: {
+        flexDirection: 'row',
+        backgroundColor: '#1da2c6',
+        color: 'white',
+        borderRadius: 10,
+        padding: 20,
     }
 });
 

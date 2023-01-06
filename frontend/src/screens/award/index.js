@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 import Leaderboard from 'react-native-leaderboard'
 import firebase from 'firebase'
 import { useNavigation } from '@react-navigation/native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Feather } from '@expo/vector-icons';
 
 const AwardsScreen = () => {
     const [data, setData] = useState([])
@@ -71,7 +73,7 @@ const AwardsScreen = () => {
         <ScrollView style={styles.container}>
             <View colors={[, '#1da2c6', '#1695b7']}
                 style={{ backgroundColor: '#119abf', padding: 15, paddingTop: 35, alignItems: 'center' }}>
-                <Text style={{ fontSize: 25, color: 'white', }}>Leaderboard</Text>
+                <Text style={{ marginTop:25, fontSize: 25, color: 'white', }}>Leaderboard</Text>
                 <View style={{
                     justifyContent: 'center', alignItems: 'center',
                     marginBottom: 15, marginTop: 20
@@ -102,10 +104,10 @@ const AwardsScreen = () => {
                         </>
                     ) : (
                         <View>
-                            <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>
-                                Log in to see your rank and receive awards</Text>
-
-                            <Button title="Login" onPress={goToAuth} />
+                            <TouchableOpacity onPress={goToAuth} style={styles.createAccountButton} >
+                                <Feather name="user-plus" size={24} color="white" />
+                                <Text style={{ color: 'white', fontSize: 18, textAlign: 'center', marginLeft: 15 }}>Create an account to receive points!</Text>
+                            </TouchableOpacity>
                         </View>
                     )}
 

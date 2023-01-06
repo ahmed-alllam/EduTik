@@ -5,16 +5,6 @@ admin.initializeApp();
 
 const db = admin.firestore()
 
-exports.newUser = functions.auth.user().onCreate((user) => {
-    // add score to user
-    user.score = 0
-
-    return db
-        .collection("user")
-        .doc(user.uid)
-        .create(JSON.parse(JSON.stringify(user)))
-})
-
 
 exports.likeCreate = functions.firestore.document('post/{id}/{type}/{uid}').onCreate((_, context) => {
     let updateObj = {}
