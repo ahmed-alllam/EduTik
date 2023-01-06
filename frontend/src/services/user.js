@@ -58,9 +58,10 @@ export const getUserById = (id) => new Promise((resolve, reject) => {
         .doc(id)
         .get()
         .then((snapshot) => {
+            console.log('allam', snapshot.data());
             resolve(snapshot.exists ? snapshot.data() : null)
         })
-        .catch(() => reject())
+        .catch(() => { reject()})
 })
 
 

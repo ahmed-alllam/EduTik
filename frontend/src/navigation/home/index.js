@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text } from 'react-native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { Feather } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons'; 
+import { FontAwesome5 } from '@expo/vector-icons';
 import CameraScreen from '../../screens/camera';
 import ProfileScreen from '../../screens/profile';
 import SearchScreen from '../../screens/search';
@@ -12,6 +12,7 @@ import FeedNavigation from '../feed';
 import firebase from 'firebase';
 import ChatScreen from '../../screens/chat/list';
 import { useChats } from '../../hooks/useChats';
+import { useSelector } from 'react-redux';
 const Tab = createMaterialBottomTabNavigator()
 
 const EmptyScreen = () => {
@@ -21,6 +22,8 @@ const EmptyScreen = () => {
 
 export default function HomeScreen() {
     useChats();
+
+    const currentUserObj = useSelector(state => state.auth);
 
     return (
         <Tab.Navigator
@@ -69,7 +72,7 @@ export default function HomeScreen() {
                         <Feather name="user" size={24} color={color} />
                     )
                 }}
-                initialParams={{ initialUserId: firebase.auth().currentUser.uid }}
+                initialParams={{ initialUserId: firebase.auth().currentUser ? firebase.auth().currentUser.uid : null}}
             />
         </Tab.Navigator>
 

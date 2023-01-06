@@ -26,6 +26,9 @@ export default function PostSingleOverlay({ user, post }) {
   });
 
   useEffect(() => {
+
+    if(!currentUser) return
+
     getLikeById(post.id, currentUser.uid).then((res) => {
       setCurrentLikeState({
         ...currentLikeState,
@@ -50,6 +53,8 @@ export default function PostSingleOverlay({ user, post }) {
             currentLikeStateInst.counter +
             (currentLikeStateInst.state ? -1 : 1),
         });
+
+        if (!currentUser) return;
         updateLike(post.id, currentUser.uid, currentLikeStateInst.state);
       }),
     []

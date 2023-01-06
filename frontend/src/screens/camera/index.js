@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity, Image, SafeAreaView, Button } from 'react-native'
 import { Camera } from 'expo-camera'
 import { Audio } from 'expo-av'
 import * as ImagePicker from 'expo-image-picker'
@@ -10,6 +10,7 @@ import { useIsFocused } from '@react-navigation/core'
 import { Feather } from '@expo/vector-icons'
 
 import styles from './styles'
+import { useSelector } from 'react-redux'
 import { useNavigation } from '@react-navigation/native'
 
 
@@ -23,6 +24,7 @@ export default function CameraScreen() {
     const [hasCameraPermissions, setHasCameraPermissions] = useState(false)
     const [hasAudioPermissions, setHasAudioPermissions] = useState(false)
     const [hasGalleryPermissions, setHasGalleryPermissions] = useState(false)
+    const currentUserObj = useSelector(state => state.auth);
 
     const [galleryItems, setGalleryItems] = useState([])
 
@@ -51,6 +53,19 @@ export default function CameraScreen() {
             }
         })()
     }, [])
+
+
+    const goToAuth = () => {
+        navigation.navigate('Auth')
+    }
+
+    if (!currentUserObj.currentUser) {
+        return (
+            <SafeAreaView style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Button title="Create an account to post videos" onPress={goToAuth} />
+            </SafeAreaView>
+        )
+    }
 
 
     const recordVideo = async () => {

@@ -35,7 +35,14 @@ export default function Route() {
         <NavigationContainer>
             <Stack.Navigator>
                 {currentUserObj.currentUser == null ?
-                    <Stack.Screen name="auth" component={AuthScreen} options={{ headerShown: false }} />
+
+
+                    <>
+                        <Stack.Screen name="home" component={HomeScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="Auth" component={AuthScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="userPosts" component={FeedScreen} options={{ headerShown: false }} />
+                        <Stack.Screen name="profileOther" component={ProfileScreen} options={{ headerShown: false }} />
+                    </>
                     :
                     <>
                         <Stack.Screen name="home" component={HomeScreen} options={{ headerShown: false }} />
@@ -44,7 +51,6 @@ export default function Route() {
                         <Stack.Screen name="profileOther" component={ProfileScreen} options={{ headerShown: false }} />
                         <Stack.Screen name="editProfile" component={EditProfileScreen} options={{ headerShown: false }} />
                         <Stack.Screen name="editProfileField" component={EditProfileFieldScreen} options={{ headerShown: false }} />
-                        <Stack.Screen name="chatSingle" component={ChatSingleScreen} options={{ headerShown: false }} />
                     </>
                 }
             </Stack.Navigator>

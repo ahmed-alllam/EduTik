@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, ScrollView } from 'react-native'
+import { View, Text, ScrollView, Button } from 'react-native'
 import { useSelector } from 'react-redux'
 import styles from './styles'
 import ProfileNavBar from '../../components/profile/navBar'
@@ -11,9 +11,21 @@ import { useUser } from '../../hooks/useUser'
 import { getPostsByUserId } from '../../services/posts'
 
 
-export default function ProfileScreen({ route }) {
+export default function ProfileScreen({ navigation, route }) {
     const { initialUserId } = route.params
     const [userPosts, setUserPosts] = useState([])
+
+    const goToAuth = () => {
+        navigation.navigate('Auth')
+    }
+
+    if (!initialUserId) {
+        return (
+            <SafeAreaView style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Button title="Create an account to post videos" onPress={goToAuth} />
+            </SafeAreaView>
+        )
+    }
 
     let providerUserId = null
     if (CurrentUserProfileItemInViewContext != null) {
@@ -21,6 +33,7 @@ export default function ProfileScreen({ route }) {
     }
 
     const user = useUser(initialUserId ? initialUserId : providerUserId).data;
+    console.log("allam 2 ", initialUserId, providerUserId, useUser(initialUserId ? initialUserId : providerUserId))
     useEffect(() => {
         if (user === undefined) {
             return;
@@ -29,15 +42,18 @@ export default function ProfileScreen({ route }) {
 
     }, [user])
 
-    if (user === undefined) {
-        return <></>
-    }
     return (
         <SafeAreaView style={styles.container}>
             <ProfileNavBar user={user} />
             <ScrollView>
-                <ProfileHeader user={user} />
-                <ProfilePostList posts={userPosts} />
+                {user ?
+                    (
+                        <View>
+                            <ProfileHeader user={user} />
+                            <ProfilePostList posts={userPosts} />
+                        </View>
+                    )
+                    : null}
             </ScrollView>
         </SafeAreaView>
     )

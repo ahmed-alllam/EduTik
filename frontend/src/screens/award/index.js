@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, ScrollView } from 'react-native'
+import { View, Text, Image, ScrollView, Button } from 'react-native'
 import styles from './styles'
 import { useSelector } from 'react-redux'
 import Leaderboard from 'react-native-leaderboard'
 import firebase from 'firebase'
+import { useNavigation } from '@react-navigation/native'
 
 const AwardsScreen = () => {
     const [data, setData] = useState([])
@@ -12,6 +13,7 @@ const AwardsScreen = () => {
     const [rank, setRank] = useState(0)
     // get the prizes
     const [prizes, setPrizes] = useState([]);
+    const navigation = useNavigation()
 
     useEffect(() => {
         firebase.firestore()
@@ -61,6 +63,10 @@ const AwardsScreen = () => {
             });
     }, [])
 
+    const goToAuth = () => {
+        navigation.navigate('Auth')
+    }
+
     return (
         <ScrollView style={styles.container}>
             <View colors={[, '#1da2c6', '#1695b7']}
@@ -79,7 +85,7 @@ const AwardsScreen = () => {
                             </View>
 
                             <View style={{ flexDirection: 'row', marginTop: 10 }}>
-                                <Text style={{color: 'white', fontSize: 18}}>
+                                <Text style={{ color: 'white', fontSize: 18 }}>
                                     {auth.currentUser.displayName}
                                 </Text>
                             </View>
@@ -95,8 +101,12 @@ const AwardsScreen = () => {
                             </View>
                         </>
                     ) : (
-                        <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>
-                            Log in to see your rank and receive awards</Text>
+                        <View>
+                            <Text style={{ color: 'white', fontSize: 20, textAlign: 'center' }}>
+                                Log in to see your rank and receive awards</Text>
+
+                            <Button title="Login" onPress={goToAuth} />
+                        </View>
                     )}
 
                 </View>

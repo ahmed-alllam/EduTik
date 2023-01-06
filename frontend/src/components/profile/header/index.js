@@ -21,8 +21,8 @@ import { useFollowingMutation } from '../../../hooks/useFollowingMutation'
 export default function ProfileHeader({ user }) {
     const navigation = useNavigation()
     const [videosCount, setVideosCount] = useState(0)
-    const isFollowing = useFollowing(firebase.auth().currentUser.uid, user.uid).data
-    const isFollowingMutation = useFollowingMutation()
+    // const isFollowing = useFollowing(firebase.auth().currentUser.uid, user.uid).data
+    // const isFollowingMutation = useFollowingMutation()
     // const renderFollowButton = () => {
     //     if (isFollowing) {
     //         return (

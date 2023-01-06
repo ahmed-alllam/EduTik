@@ -20,7 +20,7 @@ const CommentModal = ({ post }) => {
     }, [])
 
     const handleCommentSend = () => {
-        if (comment.length == 0) {
+        if (comment.length == 0 || !currentUser) {
             return;
         }
         setComment('')
@@ -38,19 +38,24 @@ const CommentModal = ({ post }) => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />
-            <View style={styles.containerInput}>
-                <Image
-                    style={generalStyles.avatarSmall}
-                    source={{ uri: currentUser.photoURL }} />
-                <TextInput
-                    value={comment}
-                    onChangeText={setComment}
-                    style={styles.input}
-                />
-                <TouchableOpacity onPress={() => handleCommentSend()}>
-                    <Ionicons name="arrow-up-circle" size={34} color={'crimson'} />
-                </TouchableOpacity>
-            </View>
+
+            {currentUser ? 
+                <View style={styles.containerInput}>
+                    <Image
+                        style={generalStyles.avatarSmall}
+                        source={{ uri: currentUser ? currentUser.photoURL : '' }}
+                    />
+                    <TextInput
+                        value={comment}
+                        onChangeText={setComment}
+                        style={styles.input}
+                    />
+                    <TouchableOpacity onPress={() => handleCommentSend()}>
+                        <Ionicons name="arrow-up-circle" size={34} color={'crimson'} />
+                    </TouchableOpacity>
+                </View>
+            : null
+            }
         </View>
     )
 }
