@@ -32,20 +32,29 @@ export default function FeedScreen({ route }) {
      * the post that is viewable and stop all the others
      */
     const onViewableItemsChanged = useRef(({ changed }) => {
+        console.log('ahmed changed size', changed.length);
         changed.forEach(element => {
             const cell = mediaRefs.current[element.key]
+            
+            if(cell) {
+                cell.stop()
+            }
+        });
+
+        // only play the first item
+        if (changed.length > 0) {
+            const cell = mediaRefs.current[changed[0].key]
             if (cell) {
-                if (element.isViewable) {
+                if (changed[0].isViewable) {
                     if (!profile) {
-                        setCurrentUserProfileItemInView(element.item.creator)
+                        setCurrentUserProfileItemInView(changed[0].item.creator)
                     }
                     cell.play()
                 } else {
                     cell.stop()
                 }
             }
-
-        });
+        }
     })
 
     console.log('ahmed height', useMaterialNavBarHeight(profile));
@@ -60,7 +69,7 @@ export default function FeedScreen({ route }) {
     const renderItem = ({ item, index }) => {
         return (
             <View style={{ height: feedItemHeight , backgroundColor: 'black' }}>
-                <PostSingle item={item} ref={PostSingleRef => (mediaRefs.current[item.id] = PostSingleRef)} />
+                <PostSingle item={item} ref={PostSingleRef => (mediaRefs.current[item.id] = PostSingleRef) } />
             </View>
         )
     }

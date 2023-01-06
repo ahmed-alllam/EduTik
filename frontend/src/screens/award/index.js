@@ -22,6 +22,9 @@ const AwardsScreen = () => {
             .collection('user')
             .orderBy('score', 'desc')
             .onSnapshot((querySnapshot) => {
+                if (querySnapshot.metadata.fromCache) {
+                    return;
+                }
                 const data = querySnapshot.docs.map((doc) => ({
                     ...doc.data(),
                     key: doc.id,

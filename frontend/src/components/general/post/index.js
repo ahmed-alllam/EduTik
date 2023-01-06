@@ -1,9 +1,12 @@
 import { Video } from 'expo-av'
 import React, { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
-import { View, Text } from 'react-native'
+import { Dimensions, View, Text } from 'react-native'
 import { useUser } from '../../../hooks/useUser'
 import PostSingleOverlay from './overlay'
 import styles from './styles'
+import { useIsFocused } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { useState } from 'react'
 
 /**
  * This component is responsible for displaying a post and play the 
@@ -15,6 +18,9 @@ import styles from './styles'
 export const PostSingle = forwardRef(({ item }, parentRef) => {
     const ref = useRef(null);
     const user = useUser(item.creator).data
+    const screenIsFocused = useIsFocused();
+    const [isPlaying, setIsPlaying] = useState(false);
+
     useImperativeHandle(parentRef, () => ({
         play,
         unload,
@@ -73,6 +79,16 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
         }
     }
 
+    const togglePlayPause = () => {
+        console.log('ahmed toggle play pause');
+        if (isPlaying) {
+            ref.current.pauseAsync();
+        } else {
+            ref.current.playAsync();
+        }
+        setIsPlaying(!isPlaying);
+    };
+
 
     /**
      * Unloads the video in the component if the ref
@@ -99,16 +115,19 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
     return (
         <>
             <PostSingleOverlay user={user} post={item} />
-            <Video
-                ref={ref}
-                style={styles.container}
-                resizeMode={Video.RESIZE_MODE_COVER}
-                shouldPlay={false}
-                isLooping
-                usePoster
-                posterSource={{ uri: item.media[1] }}
-                posterStyle={{ resizeMode: 'cover', height: '100%' }}
-                source={{ uri: item.media[0] }} />
+            <TouchableOpacity activeOpacity={1} style={{height:'100%'}} onPress={togglePlayPause}>
+                <Video
+                    ref={ref}
+                    style={styles.container}
+                    resizeMode={Video.RESIZE_MODE_COVER}
+                    shouldPlay={isPlaying}
+                    isLooping
+                    usePoster
+                    paused={!screenIsFocused}
+                    posterSource={{ uri: item.media[1] }}
+                    posterStyle={{ resizeMode: 'cover', height: '100%' }}
+                    source={{ uri: item.media[0] }} />
+            </TouchableOpacity>
         </>
     )
 })
