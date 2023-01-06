@@ -18,7 +18,9 @@ import { login, register } from '../../../redux/actions';
  */
 export default function AuthDetails({ authPage, setDetailsPage }) {
     const [email, setEmail] = useState('')
+    const [name, setName] = useState('')
     const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
 
     const dispatch = useDispatch()
 
@@ -26,12 +28,18 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
      * dispatch login action
      */
     const handleLogin = () => {
+        setError('')
+        
         dispatch(login(email, password))
             .then(() => {
                 console.log('login successful')
             })
-            .catch(() => {
-                console.log('login unsuccessful')
+            .catch((err) => {
+                if (email == '' || password == '') {
+                    setError('Please fill in all fields')
+                } else {
+                    setError('Wrong email or password')
+                }
             })
     }
 
@@ -39,19 +47,35 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
      * dispatch register action
      */
     const handleRegister = () => {
-        dispatch(register(email, password))
+        setError('')
+
+        if (name == '') {
+            setError('Please fill in all fields')
+            return
+        }
+
+        dispatch(register(name, email, password))
             .then(() => {
                 console.log('register successful')
             })
             .catch(() => {
-                console.log('register unsuccessful')
+                if (email == '' || password == '') {
+                    setError('Please fill in all fields')
+                } else {
+                    setError('An Error occured, Try a different email and password')
+                }
             })
     }
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={() => setDetailsPage(false)}>
-                <Feather name="arrow-left" size={24} color="black" />
-            </TouchableOpacity>
+            <Text style={styles.headerText}>{authPage == 0 ? 'Sign in' : 'Sign up'}</Text>
+
+            {authPage == 1 ? (
+                <View>
+                    <TextInput style={styles.textInput} placeholder='Name' onChangeText={(text) => setName(text)} />
+                </View>
+            ) : null}
+
             <TextInput
                 onChangeText={(text) => setEmail(text)}
                 style={styles.textInput}
@@ -63,6 +87,8 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
                 secureTextEntry
                 placeholder='Password'
             />
+
+            <Text style={styles.errorText}>{error}</Text>
 
             <TouchableOpacity
                 style={styles.button}

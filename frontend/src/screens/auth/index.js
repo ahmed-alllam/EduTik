@@ -12,15 +12,12 @@ import styles from './styles'
  * @returns Component
  */
 export default function AuthScreen() {
-    const [authPage, setAuthPage] = useState(0)
+    const [authPage, setAuthPage] = useState(1)
     const [detailsPage, setDetailsPage] = useState(false)
     return (
         <View style={styles.container}>
-            {detailsPage ?
                 <AuthDetails authPage={authPage} setDetailsPage={setDetailsPage} />
-                :
                 <AuthMenu authPage={authPage} setAuthPage={setAuthPage} setDetailsPage={setDetailsPage} />
-            }
         </View>
     )
 }

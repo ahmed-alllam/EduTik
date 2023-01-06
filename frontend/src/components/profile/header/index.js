@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import { Avatar } from 'react-native-paper'
 import { buttonStyles } from '../../../styles'
@@ -20,7 +20,7 @@ import { useFollowingMutation } from '../../../hooks/useFollowingMutation'
  */
 export default function ProfileHeader({ user }) {
     const navigation = useNavigation()
-
+    const [videosCount, setVideosCount] = useState(0)
     const isFollowing = useFollowing(firebase.auth().currentUser.uid, user.uid).data
     const isFollowingMutation = useFollowingMutation()
     // const renderFollowButton = () => {
@@ -54,24 +54,30 @@ export default function ProfileHeader({ user }) {
 
     //     }
     // }
+
+    console.log('user', user)
+
+    firebase.firestore().collection('post').where('creator', '==', user.uid).where('verified', '==', true).get()
+        .then((querySnapshot) => {
+            setVideosCount(querySnapshot.size)
+        })
+
     return (
         <View style={styles.container}>
-            <Image source={{ uri: user.photoURL }} style={{height: 100, width: 100, borderRadius: 50}} />
+            <Image source={{ uri: user.photoURL }} style={{ height: 100, width: 100, borderRadius: 50 }} />
             <Text style={styles.emailText}>{user.email}</Text>
+            
             <View style={styles.counterContainer}>
-                {/* <View style={styles.counterItemContainer}>
-                    <Text style={styles.counterNumberText}>0</Text>
-                    <Text style={styles.counterLabelText}>Following</Text>
+                <View style={styles.counterItemContainer}>
+                    <Text style={styles.counterNumberText}>{videosCount}</Text>
+                    <Text style={styles.counterLabelText}>Videos</Text>
                 </View>
                 <View style={styles.counterItemContainer}>
-                    <Text style={styles.counterNumberText}>0</Text>
-                    <Text style={styles.counterLabelText}>Followers</Text>
+                    <Text style={styles.counterNumberText}>{user.score}</Text>
+                    <Text style={styles.counterLabelText}>Points</Text>
                 </View>
-                <View style={styles.counterItemContainer}>
-                    <Text style={styles.counterNumberText}>0</Text>
-                    <Text style={styles.counterLabelText}>Likes</Text>
-                </View> */}
             </View>
+
             {firebase.auth().currentUser.uid === user.uid ?
                 <TouchableOpacity
                     style={buttonStyles.grayOutlinedButton}

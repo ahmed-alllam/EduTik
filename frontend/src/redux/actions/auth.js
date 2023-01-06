@@ -41,12 +41,28 @@ export const login = (email, password) => dispatch => new Promise((resolve, reje
         })
 })
 
-export const register = (email, password) => dispatch => new Promise((resolve, reject) => {
+export const register = (name, email, password) => dispatch => new Promise((resolve, reject) => {
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(() => {
+            firebase.firestore()
+                .collection('user')
+                .doc(firebase.auth().currentUser.uid)
+                .update({
+                    score: 0,
+                    displayName: name,
+                    photoURL: 'https://i0.wp.com/researchictafrica.net/wp/wp-content/uploads/2016/10/default-profile-pic.jpg?fit=300%2C300&ssl=1',
+                })
+        })
+        .then(() => {
+            firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(() => {
+            })
+        })
+        .then(() => {  
             resolve()
         })
         .catch((error) => {
+            console.log(error)
             reject(error)
         })
 })
