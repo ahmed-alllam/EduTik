@@ -17,6 +17,7 @@ export default function ProfileScreen({ navigation, route }) {
     const { initialUserId } = route.params
     const [userPosts, setUserPosts] = useState([])
     const currentUserObj = useSelector(state => state.auth);
+    const [lastVisible, setLastVisible] = useState(null);
     let userID = '';
 
     const goToAuth = () => {
@@ -41,9 +42,23 @@ export default function ProfileScreen({ navigation, route }) {
         if (user === undefined || user === null) {
             return;
         }
-        getPostsByUserId(user.uid).then(setUserPosts)
+        // getPostsByUserId(user.uid).then(setUserPosts)
 
-    }, [user])
+
+        getPostsByUserId(lastVisible, user.uid).then((newposts) => {
+            setUserPosts([...userPosts, ...newposts])
+
+            if (newposts.length > 0) {
+                setLastVisible(newposts[newposts.length - 1])
+            }
+        })
+
+    }, [user, lastVisible])
+
+    const handleLoadMore = () => {
+        console.log('handleLoadMore');
+        setLastVisible(userPosts[userPosts.length - 1]);
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -54,7 +69,7 @@ export default function ProfileScreen({ navigation, route }) {
                         <ScrollView>
                             <View>
                                 <ProfileHeader user={user} />
-                                <ProfilePostList posts={userPosts} />
+                                <ProfilePostList posts={userPosts} onEndReached={handleLoadMore}/>
                             </View>
                         </ScrollView>
                     </SafeAreaView>)

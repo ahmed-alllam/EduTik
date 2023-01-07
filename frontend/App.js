@@ -19,6 +19,10 @@ if (firebase.apps.length === 0) {
 
 // init firebase analytics
 
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs(['Setting a timer for a long period of time'])
+
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchInterval: false, staleTime: Infinity } }
 })

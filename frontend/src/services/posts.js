@@ -6,18 +6,28 @@ let commentListnerInstance = null
  *
  * @returns {Promise<[<Object>]>} post list if successful.
  */
-export const getFeed = () =>
+export const getFeed = (lastPost) =>
   new Promise((resolve, reject) => {
-    firebase
+
+    let query = firebase
       .firestore()
       .collection("post")
-      .get()
+      .where('verified', '==', true)
+      .orderBy('creation', 'desc')
+      .limit(20);
+
+    if (lastPost != null) {
+      console.log('lastPost', lastPost.creation);
+      query = query.startAfter(lastPost.creation);
+    }
+
+    query.get()
       .then((res) => {
         let posts = res.docs.map((value) => {
           const id = value.id;
           const data = value.data();
           return { id, ...data };
-        }).filter((post) => post.verified);
+        });
         resolve(posts);
       })
       .catch((err) => console.log(err));
@@ -106,17 +116,28 @@ export const clearCommentListener = () => {
   }
 }
 
-export const getPostsByUserId = (uid = firebase.auth().currentUser.uid) => new Promise((resolve, reject) => {
-  firebase.firestore()
-    .collection('post')
-    .where('creator', '==', uid)
-    .orderBy('creation', 'desc')
-    .onSnapshot((snapshot) => {
-      let posts = snapshot.docs.map(doc => {
-        const data = doc.data()
-        const id = doc.id
-        return { id, ...data }
-      }).filter((post) => post.verified);
-      resolve(posts)
-    })
+export const getPostsByUserId = (lastPost, uid = firebase.auth().currentUser.uid) => new Promise((resolve, reject) => {
+    let query = firebase
+      .firestore()
+      .collection("post")
+      .where('creator', '==', uid)
+      .where('verified', '==', true)
+      .orderBy('creation', 'desc')
+      .limit(20);
+
+    if (lastPost != null) {
+      console.log('lastPost', lastPost.creation);
+      query = query.startAfter(lastPost.creation);
+    }
+
+    query.get()
+      .then((res) => {
+        let posts = res.docs.map((value) => {
+          const id = value.id;
+          const data = value.data();
+          return { id, ...data };
+        });
+        resolve(posts);
+      })
+      .catch((err) => console.log(err));
 })

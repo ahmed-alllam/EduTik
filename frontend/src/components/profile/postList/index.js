@@ -3,7 +3,7 @@ import { View, Text, FlatList } from 'react-native'
 import ProfilePostListItem from './item'
 import styles from './styles'
 
-export default function ProfilePostList({ posts }) {
+export default function ProfilePostList({ posts, onEndReached }) {
     return (
         <View style={styles.container}>
             <FlatList
@@ -11,6 +11,7 @@ export default function ProfilePostList({ posts }) {
                 removeClippedSubviews
                 nestedScrollEnabled
                 data={posts}
+                onEndReached={onEndReached}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (<ProfilePostListItem item={item} />)}
             />

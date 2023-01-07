@@ -16,15 +16,33 @@ export default function FeedScreen({ route }) {
     const { setCurrentUserProfileItemInView, creator, profile } = route.params
     const [posts, setPosts] = useState([])
     const mediaRefs = useRef([])
+    const [lastVisible, setLastVisible] = useState(null);
     const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0)
 
     useEffect(() => {
         if (profile) {
-            getPostsByUserId(creator).then(setPosts)
+            getPostsByUserId(lastVisible, creator).then((newposts) => {
+                setPosts([...posts, ...newposts])
+
+                if (newposts.length > 0) {
+                    setLastVisible(newposts[newposts.length - 1])
+                }
+            })
         } else {
-            getFeed().then(setPosts)
+            getFeed(lastVisible).then((newposts) => {
+                setPosts([...posts, ...newposts])
+
+                if (newposts.length > 0) {
+                    setLastVisible(newposts[newposts.length - 1])
+                }
+            })
         }
-    }, [])
+    }, [lastVisible])
+
+    const handleLoadMore = () => {
+        console.log('handleLoadMore');
+        setLastVisible(posts[posts.length - 1]);
+    };
 
 
     /**
@@ -73,6 +91,8 @@ export default function FeedScreen({ route }) {
                 pagingEnabled
                 keyExtractor={item => item.id}
                 decelerationRate={'normal'}
+                onEndReached={handleLoadMore}
+                onEndReachedThreshold={0.5}
                 onViewableItemsChanged={onViewableItemsChanged.current}
             />
         </View>
