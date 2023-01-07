@@ -7,6 +7,7 @@ import styles from './styles'
 import { useIsFocused } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useState } from 'react'
+import { Ionicons } from "@expo/vector-icons";
 
 /**
  * This component is responsible for displaying a post and play the 
@@ -115,7 +116,20 @@ export const PostSingle = forwardRef(({ item, index, currentVisibleIndex }, pare
     return (
         <>
             <PostSingleOverlay user={user} post={item} />
-            <TouchableOpacity activeOpacity={1} style={{height:'100%'}} onPress={togglePlayPause}>
+            <Ionicons
+                color="white"
+                size={100}
+                name="play"
+                style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: [{ translateX: -50 }, { translateY: -50 }],
+                    opacity: isPlaying ? 0 : 1,
+                    zIndex: 1000
+                }}
+            />
+            <TouchableOpacity activeOpacity={1} style={{ height: '100%' }} onPress={togglePlayPause}>
                 <Video
                     ref={ref}
                     style={styles.container}
