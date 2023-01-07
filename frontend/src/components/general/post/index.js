@@ -116,19 +116,6 @@ export const PostSingle = forwardRef(({ item, index, currentVisibleIndex }, pare
     return (
         <>
             <PostSingleOverlay user={user} post={item} />
-            <Ionicons
-                color="white"
-                size={100}
-                name="play"
-                style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: [{ translateX: -50 }, { translateY: -50 }],
-                    opacity: isPlaying ? 0 : 1,
-                    zIndex: 1000
-                }}
-            />
             <TouchableOpacity activeOpacity={1} style={{ height: '100%' }} onPress={togglePlayPause}>
                 <Video
                     ref={ref}
@@ -140,6 +127,19 @@ export const PostSingle = forwardRef(({ item, index, currentVisibleIndex }, pare
                     posterSource={{ uri: item.media[1] }}
                     posterStyle={{ resizeMode: 'cover', height: '100%' }}
                     source={{ uri: item.media[0] }} />
+                <Ionicons
+                    color="white"
+                    size={100}
+                    name="play"
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: [{ translateX: -50 }, { translateY: -50 }],
+                        opacity: isPlaying ? 0 : 1,
+                        zIndex: 1000
+                    }}
+                />
             </TouchableOpacity>
         </>
     )
