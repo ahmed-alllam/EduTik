@@ -11,14 +11,13 @@ import rootReducer from './src/redux/reducers';
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
-
-
-
 if (firebase.apps.length === 0) {
   firebase.initializeApp(Constants.manifest.web.config.firebase)
 } else {
   firebase.app()
 }
+
+// init firebase analytics
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchInterval: false, staleTime: Infinity } }

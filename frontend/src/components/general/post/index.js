@@ -15,11 +15,11 @@ import { useState } from 'react'
  * The ref is forwarded to this component so that the parent component
  * can manage the play status of the video.
  */
-export const PostSingle = forwardRef(({ item }, parentRef) => {
+export const PostSingle = forwardRef(({ item, index, currentVisibleIndex }, parentRef) => {
     const ref = useRef(null);
     const user = useUser(item.creator).data
     const screenIsFocused = useIsFocused();
-    const [isPlaying, setIsPlaying] = useState(false);
+    const [isPlaying, setIsPlaying] = useState(true);
 
     useImperativeHandle(parentRef, () => ({
         play,
@@ -120,10 +120,9 @@ export const PostSingle = forwardRef(({ item }, parentRef) => {
                     ref={ref}
                     style={styles.container}
                     resizeMode={Video.RESIZE_MODE_COVER}
-                    shouldPlay={isPlaying}
+                    shouldPlay={isPlaying && screenIsFocused && index === currentVisibleIndex}
                     isLooping
                     usePoster
-                    paused={!screenIsFocused}
                     posterSource={{ uri: item.media[1] }}
                     posterStyle={{ resizeMode: 'cover', height: '100%' }}
                     source={{ uri: item.media[0] }} />

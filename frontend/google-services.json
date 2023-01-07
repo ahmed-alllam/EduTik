@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "589464504311",
+    "firebase_url": "https://edutik-930c1-default-rtdb.firebaseio.com",
+    "project_id": "edutik-930c1",
+    "storage_bucket": "edutik-930c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589464504311:android:d69556ec1317432fcdd0f2",
+        "android_client_info": {
+          "package_name": "com.edutik.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589464504311-uh1ubr1pp73rtnbn4v5kra5tulfra8c9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG6ApibeHq3yswAO483YeDPm3uIHlE6GQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "589464504311-uh1ubr1pp73rtnbn4v5kra5tulfra8c9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

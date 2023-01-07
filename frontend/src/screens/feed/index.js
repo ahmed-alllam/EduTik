@@ -16,6 +16,7 @@ export default function FeedScreen({ route }) {
     const { setCurrentUserProfileItemInView, creator, profile } = route.params
     const [posts, setPosts] = useState([])
     const mediaRefs = useRef([])
+    const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0)
 
     useEffect(() => {
         if (profile) {
@@ -31,31 +32,14 @@ export default function FeedScreen({ route }) {
      * the FlatList, when this happens we should start playing 
      * the post that is viewable and stop all the others
      */
-    const onViewableItemsChanged = useRef(({ changed }) => {
-        console.log('ahmed changed size', changed.length);
-        changed.forEach(element => {
-            const cell = mediaRefs.current[element.key]
-            
-            if(cell) {
-                cell.stop()
-            }
-        });
-
-        // only play the first item
-        if (changed.length > 0) {
-            const cell = mediaRefs.current[changed[0].key]
-            if (cell) {
-                if (changed[0].isViewable) {
-                    if (!profile) {
-                        setCurrentUserProfileItemInView(changed[0].item.creator)
-                    }
-                    cell.play()
-                } else {
-                    cell.stop()
-                }
+    const onViewableItemsChanged = useRef(({ viewableItems, changed }) => {
+        if (viewableItems && viewableItems.length > 0) {
+            setCurrentVisibleIndex(viewableItems[0].index)
+            if (!profile) {
+                setCurrentUserProfileItemInView(viewableItems[0].item.creator)
             }
         }
-    })
+    });
 
     console.log('ahmed height', useMaterialNavBarHeight(profile));
     const feedItemHeight = Dimensions.get('window').height - useMaterialNavBarHeight(profile);
@@ -68,8 +52,8 @@ export default function FeedScreen({ route }) {
      */
     const renderItem = ({ item, index }) => {
         return (
-            <View style={{ height: feedItemHeight , backgroundColor: 'black' }}>
-                <PostSingle item={item} ref={PostSingleRef => (mediaRefs.current[item.id] = PostSingleRef) } />
+            <View style={{ height: feedItemHeight, backgroundColor: 'black' }}>
+                <PostSingle item={item} index={index} currentVisibleIndex={currentVisibleIndex} ref={PostSingleRef => (mediaRefs.current[item.id] = PostSingleRef)} />
             </View>
         )
     }
@@ -83,7 +67,7 @@ export default function FeedScreen({ route }) {
                 maxToRenderPerBatch={2}
                 removeClippedSubviews
                 viewabilityConfig={{
-                    itemVisiblePercentThreshold: 0
+                    itemVisiblePercentThreshold: 90
                 }}
                 renderItem={renderItem}
                 pagingEnabled
