@@ -19,6 +19,7 @@ export default function FeedScreen({ route }) {
     const [lastVisible, setLastVisible] = useState(null);
     const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0)
     const [used, setUsed] = useState(false);
+    const [iters, setIters] = useState(0);
 
     console.log('feed created');
 
@@ -41,8 +42,22 @@ export default function FeedScreen({ route }) {
 
                     if (newposts.length > 0) {
                         setLastVisible(newposts[newposts.length - 1])
+                    } else {
+                        // reiterate
+                        getPostsByUserId(null, creator).then((newposts) => {
+                            setIters(iters + 1);
+                            newposts = newposts.map((post) => {
+                                post.id = post.id + iters;
+                                return post;
+                            });
+                            setPosts([...posts, ...newposts])
+                            if (newposts.length > 0) {
+                                setLastVisible(newposts[newposts.length - 1])
+                            }
+                        }
+                        )
                     }
-                })
+                }) 
             }
         } else {
             getFeed(lastVisible).then((newposts) => {
@@ -50,6 +65,20 @@ export default function FeedScreen({ route }) {
 
                 if (newposts.length > 0) {
                     setLastVisible(newposts[newposts.length - 1])
+                } else {
+                    // reiterate
+                    getFeed(null).then((newposts) => {
+                        setIters(iters + 1);
+                        newposts = newposts.map((post) => {
+                            post.id = post.id + iters;
+                            return post;
+                        });
+                        setPosts([...posts, ...newposts])
+                        if (newposts.length > 0) {
+                            setLastVisible(newposts[newposts.length - 1])
+                        }
+                    }
+                    )
                 }
             })
         }
