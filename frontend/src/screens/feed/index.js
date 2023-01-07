@@ -13,21 +13,37 @@ import styles from './styles'
  * to display/control the posts.
  */
 export default function FeedScreen({ route }) {
-    const { setCurrentUserProfileItemInView, creator, profile } = route.params
+    const { setCurrentUserProfileItemInView, creator, profile, initCreation } = route.params
     const [posts, setPosts] = useState([])
     const mediaRefs = useRef([])
     const [lastVisible, setLastVisible] = useState(null);
     const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0)
+    const [used, setUsed] = useState(false);
+
+    console.log('feed created');
 
     useEffect(() => {
         if (profile) {
-            getPostsByUserId(lastVisible, creator).then((newposts) => {
-                setPosts([...posts, ...newposts])
+            if (initCreation && !used) {
+                let creationtemp = initCreation;
+                creationtemp.seconds = creationtemp.seconds + 1;
+                console.log('creationtemp', creationtemp);
+                getPostsByUserId({creation:creationtemp}, creator).then((newposts) => {
+                    setPosts(newposts)
+                    if (newposts.length > 0) {
+                        setLastVisible(newposts[newposts.length - 1])
+                    }
+                })
+                setUsed(true);
+            } else {
+                getPostsByUserId(lastVisible, creator).then((newposts) => {
+                    setPosts([...posts, ...newposts])
 
-                if (newposts.length > 0) {
-                    setLastVisible(newposts[newposts.length - 1])
-                }
-            })
+                    if (newposts.length > 0) {
+                        setLastVisible(newposts[newposts.length - 1])
+                    }
+                })
+            }
         } else {
             getFeed(lastVisible).then((newposts) => {
                 setPosts([...posts, ...newposts])

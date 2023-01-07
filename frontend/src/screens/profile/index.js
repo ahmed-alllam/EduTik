@@ -44,7 +44,6 @@ export default function ProfileScreen({ navigation, route }) {
         }
         // getPostsByUserId(user.uid).then(setUserPosts)
 
-
         getPostsByUserId(lastVisible, user.uid).then((newposts) => {
             setUserPosts([...userPosts, ...newposts])
 
