@@ -7,11 +7,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     containerText: {
-        marginHorizontal: 14
+        marginHorizontal: 14,
+        fontFamily: 'Colton-Medium',
     },
     displayName: {
         color: 'gray',
-        fontSize: 13
+        fontSize: 13,
+        fontFamily: 'Colton-Bold',
     }
 })
 export default styles

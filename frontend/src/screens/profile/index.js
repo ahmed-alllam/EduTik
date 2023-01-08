@@ -75,7 +75,7 @@ export default function ProfileScreen({ navigation, route }) {
                 : (<SafeAreaView style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <TouchableOpacity onPress={goToAuth} style={styles.createAccountButton} >
                         <Feather name="user-plus" size={24} color="white" />
-                        <Text style={{ color: 'white', fontSize: 18, textAlign: 'center', marginLeft: 15}}>Create a free account</Text>
+                        <Text style={{ color: 'white', fontSize: 18, textAlign: 'center', marginLeft: 5, fontFamily: 'Colton-Black' }}>Create a free account</Text>
                     </TouchableOpacity>
                 </SafeAreaView>
                 )}

@@ -8,6 +8,7 @@ import { applyMiddleware, createStore } from 'redux';
 import thunk from 'redux-thunk';
 import Route from './src/navigation/main';
 import rootReducer from './src/redux/reducers';
+import { useFonts } from 'expo-font';
 
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
@@ -30,6 +31,15 @@ const queryClient = new QueryClient({
 })
 
 export default function App() {
+
+
+  const [fontsLoaded] = useFonts({
+    'Colton-Black': require('./assets/fonts/HDColton-Black.otf'),
+    'Colton-Bold': require('./assets/fonts/HDColton-CondBlack.otf'),
+    'Colton-Medium': require('./assets/fonts/HDColton-CompMedium.otf'),
+    'Colton-Semi-Bold': require('./assets/fonts/HDColton-CompSemibold.otf'),
+  });
+
   return (
     <Provider store={store} >
       <StatusBar hidden={true} />

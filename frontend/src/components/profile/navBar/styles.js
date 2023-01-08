@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
         color: 'black',
         flex: 1,
         textAlign: 'center',
-        fontWeight: 'bold'
+        fontFamily: 'Colton-Bold',
+        // fontWeight: 'bold'
     }
 });
 

@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
 
     },
     input: {
+        fontFamily: 'Colton-Medium',
         backgroundColor: 'lightgrey',
         borderRadius: 4,
         flex: 1,

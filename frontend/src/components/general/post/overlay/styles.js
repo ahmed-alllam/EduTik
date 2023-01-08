@@ -15,12 +15,14 @@ const styles = StyleSheet.create({
     },
     displayName: {
         color: 'white',
-        fontWeight: 'bold',
+        // fontWeight: 'bold',
+        fontFamily: 'Colton-Bold',
         fontSize: 16
     },
     description: {
         marginTop: 10,
         color: 'white',
+        fontFamily: 'Colton-Medium',
     },
     avatar: {
         height: 50,

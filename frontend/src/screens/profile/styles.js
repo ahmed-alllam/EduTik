@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     },
     createAccountButton: {
         flexDirection: 'row',
-        backgroundColor: '#1da2c6',
+        backgroundColor: '#f9d264',
         color: 'white',
         borderRadius: 10,
         padding: 20,

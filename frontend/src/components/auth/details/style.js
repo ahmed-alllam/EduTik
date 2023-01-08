@@ -6,13 +6,14 @@ const styles = StyleSheet.create({
         paddingTop: 20,
     },
     headerText: {
-        fontWeight: 'bold',
+        fontFamily: 'Colton-Bold',
         fontSize: 25,
         marginBottom: 25,
-        color: 'darkslategray',
+        color: '#f9d264',
         textAlign: 'center'
     },
     textInput: {
+        fontFamily: 'Colton-Black',
         borderColor: 'lightgray',
         borderBottomWidth: 1,
         borderStyle: 'solid',
@@ -23,19 +24,21 @@ const styles = StyleSheet.create({
     button: {
         marginTop: 80,
         borderColor: 'lightgray',
-        borderWidth: 1,
+        // borderWidth: 1,
         borderStyle: 'solid',
         paddingVertical: 10,
         paddingHorizontal: 20,
         alignItems: 'center',
-        backgroundColor: 'red'
+        backgroundColor: '#f9d264',
+        borderRadius: 40,
     },
     buttonText: {
+        fontFamily: 'Colton-Black',
         color: 'white',
-        fontWeight: 'bold',
-        fontSize: 16
+        fontSize: 18
     },
     errorText: {
+        fontFamily: 'Colton-Black',
         color: 'red',
         marginTop: 20
     },

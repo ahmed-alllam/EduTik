@@ -17,14 +17,17 @@ const styles = StyleSheet.create({
     },
     emailText: {
         padding: 20,
+        fontFamily: 'Colton-Medium',
     },
     counterNumberText: {
-        fontWeight: 'bold',
-        fontSize: 16
+        // fontWeight: 'bold',
+        fontSize: 16,
+        fontFamily: 'Colton-Bold',
     },
     counterLabelText: {
         color: 'gray',
-        fontSize: 11
+        fontSize: 11,
+        fontFamily: 'Colton-Black',
     }
 });
 

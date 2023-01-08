@@ -1,23 +1,16 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import { View } from 'react-native'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs'
 import { Feather } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import CameraScreen from '../../screens/camera';
 import ProfileScreen from '../../screens/profile';
 import SearchScreen from '../../screens/search';
 import AwardsScreen from '../../screens/award';
-import FeedScreen from '../../screens/feed';
 import FeedNavigation from '../feed';
-import firebase from 'firebase';
-import ChatScreen from '../../screens/chat/list';
 import { useChats } from '../../hooks/useChats';
-import { useSelector } from 'react-redux';
-const Tab = createMaterialBottomTabNavigator()
 
-const EmptyScreen = () => {
-    return <View></View>
-}
+const Tab = createMaterialBottomTabNavigator()
 
 
 export default function HomeScreen() {
@@ -28,12 +21,12 @@ export default function HomeScreen() {
             barStyle={{ backgroundColor: 'black' }}
             initialRouteName="feed">
             <Tab.Screen
-                name="feed"
+                name="Learn"
                 component={FeedNavigation}
                 options={{
                     tabBarIcon: ({ color }) => (
-                        <Feather name="home" size={24} color={color} />
-                    )
+                        <Ionicons name="school-outline" size={24} color={color} />
+                    ),
                 }}
             />
             <Tab.Screen
@@ -70,7 +63,7 @@ export default function HomeScreen() {
                         <Feather name="user" size={24} color={color} />
                     )
                 }}
-                initialParams={{ initialUserId: null}}
+                initialParams={{ initialUserId: null }}
             />
         </Tab.Navigator>
 

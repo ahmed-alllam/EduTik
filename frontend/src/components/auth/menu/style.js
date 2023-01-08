@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     headerText: {
-        fontWeight: 'bold',
+        fontFamily: 'Colton-Black',
         fontSize: 25,
         marginBottom: 25,
         color: 'darkslategray',
@@ -24,10 +24,13 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     providerButtonText: {
-        paddingRight: 20
+        paddingRight: 20,
+        fontFamily: 'Colton-Black',
+
     },
 
     containerBottomButton: {
+
         backgroundColor: 'ghostwhite',
         padding: 20,
         alignItems: 'center',
@@ -36,8 +39,9 @@ const styles = StyleSheet.create({
         borderColor: 'lightgray'
     },
     bottomButtonText: {
-        fontWeight: 'bold',
-        color: 'red'
+        fontFamily: 'Colton-Black',
+        // fontWeight: 'bold',
+        color: '#f9d264'
     }
 });
 

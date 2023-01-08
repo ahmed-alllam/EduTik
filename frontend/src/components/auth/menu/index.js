@@ -18,9 +18,10 @@ export default function AuthMenu({ authPage, setAuthPage, setDetailsPage }) {
                 onPress={() => authPage == 0 ? setAuthPage(1) : setAuthPage(0)}>
 
                 {authPage == 0 ?
-                    <Text>Don't have an account? <Text style={styles.bottomButtonText}>Sign up</Text></Text>
+                    <Text style={{fontFamily: 'Colton-Medium'}}>
+                        Don't have an account? <Text style={styles.bottomButtonText}>Sign up</Text></Text>
                     :
-                    <Text>Already have an account? <Text style={styles.bottomButtonText}>Sign in</Text></Text>
+                    <Text style={{fontFamily: 'Colton-Medium'}}>Already have an account? <Text style={styles.bottomButtonText}>Sign in</Text></Text>
                 }
             </TouchableOpacity>
 

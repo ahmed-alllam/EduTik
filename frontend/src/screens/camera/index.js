@@ -64,7 +64,7 @@ export default function CameraScreen() {
             <SafeAreaView style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity onPress={goToAuth} style={styles.createAccountButton} >
                     <Feather name="user-plus" size={24} color="white" />
-                    <Text style={{ color: 'white', fontSize: 18, textAlign: 'center', marginLeft: 15 }}>Create an account to post videos</Text>
+                    <Text style={{ color: 'white', fontSize: 16, textAlign: 'center', marginLeft: 5 , fontFamily: 'Colton-Black' }}>Create an account to post videos</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         )

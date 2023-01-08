@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     prizeContainer: {
         // padding: 16,
         // alignItems: 'center',
-        backgroundColor: '#1da2c6',
+        backgroundColor: '#f9d264',
         marginHorizontal: 16,
         borderRadius: 16,
         width: 300,
@@ -28,15 +28,16 @@ const styles = StyleSheet.create({
         marginBottom: 16,
       },
       prizeName: {
+        fontFamily: 'Colton-Black',
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 8,
         color: 'white',
         textAlign: 'left',
         marginLeft: 20,
-        
     },
     prizeDescription: {
+        fontFamily: 'Colton-Medium',
         fontSize: 16,
         color: 'white',
         textAlign: 'left',
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
       },
       createAccountButton: {
         flexDirection: 'row',
-        backgroundColor: '#1da2c6',
+        backgroundColor: '#fae098',
         color: 'white',
         borderRadius: 10,
         padding: 20,

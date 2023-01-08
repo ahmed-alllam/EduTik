@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     alertText: {
-        color: '#00FF00',
+        color: '#f9d264',
         fontSize: 20,
         fontWeight: 'bold',
       },
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     postButton: {
         alignItems: 'center',
         flex: 1,
-        backgroundColor: '#ff4040',
+        backgroundColor: '#f9d264',
         flexDirection: 'row',
         paddingVertical: 10,
         paddingHorizontal: 20,
