@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Dimensions, FlatList, View, LayoutChangeEvent } from 'react-native'
+import { Dimensions, FlatList, View,} from 'react-native'
 import useMaterialNavBarHeight from '../../hooks/useMaterialNavBarHeight'
 import PostSingle from '../../components/general/post'
 import { getFeed, getPostsByUserId } from '../../services/posts'
@@ -20,19 +20,21 @@ export default function FeedScreen({ route }) {
     const [currentVisibleIndex, setCurrentVisibleIndex] = useState(0)
     const [used, setUsed] = useState(false);
     const [iters, setIters] = useState(0);
+    const [layoutHeight, setLayoutHeight] = useState(0);
 
     console.log('feed created');
 
     useEffect(() => {
+        console.log('feed useEffect , length', posts.length);
         if (profile) {
             if (initCreation && !used) {
                 let creationtemp = initCreation;
                 creationtemp.seconds = creationtemp.seconds + 1;
                 console.log('creationtemp', creationtemp);
-                getPostsByUserId({creation:creationtemp}, creator).then((newposts) => {
+                getPostsByUserId({ creation: creationtemp }, creator).then((newposts) => {
                     setPosts(newposts)
                     if (newposts.length > 0) {
-                        setLastVisible(newposts[newposts.length - 1])
+                        // setLastVisible(newposts[newposts.length - 1])
                     }
                 })
                 setUsed(true);
@@ -41,7 +43,7 @@ export default function FeedScreen({ route }) {
                     setPosts([...posts, ...newposts])
 
                     if (newposts.length > 0) {
-                        setLastVisible(newposts[newposts.length - 1])
+                        // setLastVisible(newposts[newposts.length - 1])
                     } else {
                         // reiterate
                         getPostsByUserId(null, creator).then((newposts) => {
@@ -52,19 +54,19 @@ export default function FeedScreen({ route }) {
                             });
                             setPosts([...posts, ...newposts])
                             if (newposts.length > 0) {
-                                setLastVisible(newposts[newposts.length - 1])
+                                // setLastVisible(newposts[newposts.length - 1])
                             }
                         }
                         )
                     }
-                }) 
+                })
             }
         } else {
             getFeed(lastVisible).then((newposts) => {
                 setPosts([...posts, ...newposts])
 
                 if (newposts.length > 0) {
-                    setLastVisible(newposts[newposts.length - 1])
+                    // setLastVisible(newposts[newposts.length - 1])
                 } else {
                     // reiterate
                     getFeed(null).then((newposts) => {
@@ -75,7 +77,7 @@ export default function FeedScreen({ route }) {
                         });
                         setPosts([...posts, ...newposts])
                         if (newposts.length > 0) {
-                            setLastVisible(newposts[newposts.length - 1])
+                            // setLastVisible(newposts[newposts.length - 1])
                         }
                     }
                     )
@@ -104,8 +106,7 @@ export default function FeedScreen({ route }) {
         }
     });
 
-    console.log('ahmed height', useMaterialNavBarHeight(profile));
-    const feedItemHeight = Dimensions.get('window').height - useMaterialNavBarHeight(profile);
+    console.log('ahmed height', useMaterialNavBarHeight(profile));    
     /**
      * renders the item shown in the FlatList
      * 
@@ -115,7 +116,7 @@ export default function FeedScreen({ route }) {
      */
     const renderItem = ({ item, index }) => {
         return (
-            <View style={{ height: feedItemHeight, backgroundColor: 'black' }}>
+            <View style={{ height: layoutHeight, backgroundColor: 'black' }}>
                 <PostSingle item={item} index={index} currentVisibleIndex={currentVisibleIndex} ref={PostSingleRef => (mediaRefs.current[item.id] = PostSingleRef)} />
             </View>
         )
@@ -124,11 +125,16 @@ export default function FeedScreen({ route }) {
     return (
         <View style={styles.container}>
             <FlatList
+                style={{backgroundColor: 'black'}}
                 data={posts}
                 windowSize={4}
                 initialNumToRender={0}
                 maxToRenderPerBatch={2}
                 removeClippedSubviews
+                onLayout={(event) => {
+                    const { height } = event.nativeEvent.layout;
+                    setLayoutHeight(height);
+                }}
                 viewabilityConfig={{
                     itemVisiblePercentThreshold: 90
                 }}
