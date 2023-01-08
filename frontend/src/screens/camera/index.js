@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, Image, SafeAreaView, Button } from 'react-native'
+import { View, Text, TouchableOpacity, Image, SafeAreaView, Button, Alert } from 'react-native'
 import { Camera } from 'expo-camera'
 import { Audio } from 'expo-av'
 import * as ImagePicker from 'expo-image-picker'
@@ -54,7 +54,6 @@ export default function CameraScreen() {
         })()
     }, [])
 
-
     const goToAuth = () => {
         navigation.navigate('Auth')
     }
@@ -70,11 +69,10 @@ export default function CameraScreen() {
         )
     }
 
-
     const recordVideo = async () => {
         if (cameraRef) {
             try {
-                const options = { maxDuration: 60, quality: Camera.Constants.VideoQuality['480'] }
+                const options = { maxDuration: 90, quality: Camera.Constants.VideoQuality['480'] }
                 const videoRecordPromise = cameraRef.recordAsync(options)
                 if (videoRecordPromise) {
                     const data = await videoRecordPromise;
@@ -102,6 +100,12 @@ export default function CameraScreen() {
             quality: 1
         })
         if (!result.cancelled) {
+            if (result.duration > 90000) {
+                Alert.alert('Video too long', 'Please select a video that is less than 90 seconds long')
+                console.log('Video too long')
+                return
+            }
+
             let sourceThumb = await generateThumbnail(result.uri)
             navigation.navigate('savePost', { source: result.uri, sourceThumb })
         }
@@ -123,7 +127,9 @@ export default function CameraScreen() {
 
     if (!hasCameraPermissions || !hasAudioPermissions || !hasGalleryPermissions) {
         return (
-            <View></View>
+            <View>
+                <Text>Please enable camera permissions from your settings </Text>
+            </View>
         )
     }
 

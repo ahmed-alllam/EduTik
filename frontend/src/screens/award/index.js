@@ -76,7 +76,7 @@ const AwardsScreen = () => {
         <ScrollView style={styles.container}>
             <View colors={[, '#f9d264', '#f9d264']}
                 style={{ backgroundColor: '#f9d264', padding: 15, paddingTop: 35, alignItems: 'center' }}>
-                <Text style={{ fontFamily: 'Colton-Black', marginTop:15, fontSize: 25, color: 'white', }}>Leaderboard</Text>
+                <Text style={{ fontFamily: 'Colton-Black', marginTop:15, fontSize: 25, color: 'white', }}>Awards</Text>
                 <View style={{
                     justifyContent: 'center', alignItems: 'center',
                     marginBottom: 15, marginTop: 20
@@ -118,14 +118,7 @@ const AwardsScreen = () => {
             </View>
 
 
-            <Leaderboard
-                data={data.slice(0, 5)}
-                sortBy='score'
-                labelBy='displayName'
-                labelStyle={{ fontFamily: 'Colton-Semi-Bold', fontSize:18 }}
-            />
-
-            <Text style={{ fontSize: 18, textAlign: 'center', marginTop: 30, marginBottom: 10, color: '#f9d264', fontFamily: 'Colton-Black' }}>Post videos to redeem awards!</Text>
+            <Text style={{ fontSize: 18, textAlign: 'center', marginHorizontal: 30, marginTop: 30, marginBottom: 10, color: '#f9d264', fontFamily: 'Colton-Black' }}>Post Educational Videos to redeem Awards!</Text>
 
             <ScrollView
                 horizontal
@@ -140,6 +133,16 @@ const AwardsScreen = () => {
                     </View>
                 ))}
             </ScrollView>
+
+            <Text style={{ fontSize: 25, textAlign: 'center', marginHorizontal: 30, marginTop: 15, marginBottom: 30, color: '#f9d264', fontFamily: 'Colton-Black' }}>Leaderboard</Text>
+
+            <Leaderboard
+                data={data.slice(0, 5)}
+                sortBy='score'
+                labelBy='displayName'
+                labelStyle={{ fontFamily: 'Colton-Semi-Bold', fontSize:18 }}
+            />
+
         </ScrollView>
     )
 }

@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, CheckBox } from 'react-native'
 import { Feather } from '@expo/vector-icons';
 import styles from './style';
 import { useDispatch } from 'react-redux'
 import { login, register } from '../../../redux/actions';
+import { Linking } from 'react-native';
 
 /**
  * Function that renders a component that renders a signin/signup
@@ -21,6 +22,7 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
     const [error, setError] = useState('')
+    const [privacyChecked, setPrivacyChecked] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -29,7 +31,7 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
      */
     const handleLogin = () => {
         setError('')
-        
+
         dispatch(login(email, password))
             .then(() => {
                 console.log('login successful')
@@ -54,6 +56,11 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
             return
         }
 
+        if (!privacyChecked) {
+            setError('Please agree to the privacy policy')
+            return
+        }
+
         dispatch(register(name, email, password))
             .then(() => {
                 console.log('register successful')
@@ -66,6 +73,13 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
                 }
             })
     }
+
+    const openPrivacyPage = () => {
+
+        Linking.openURL("https://www.privacypolicygenerator.info/live.php?token=dwkz0VWYmkKQdgAHYrzH4ZIS3whTTHjC").catch(err => console.error("Couldn't load page", err));
+
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.headerText}>{authPage == 0 ? 'Sign in' : 'Sign up'}</Text>
@@ -87,6 +101,29 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
                 secureTextEntry
                 placeholder='Password'
             />
+
+            {authPage == 1 ? (
+                <View style={styles.privacyContainer}>
+                    <TouchableOpacity
+                        style={{ flexDirection: 'row', alignItems: 'center', marginTop: 20 }}
+                        onPress={() => setPrivacyChecked(!privacyChecked)}
+                    >
+                        {privacyChecked ? (
+                            <Feather name="check-square" size={24} color="#efcb00" style={{marginRight:5}}  />
+                        ) : (
+                            <Feather name="square" size={24} color="grey" style={{marginRight:5}} />
+                        )}
+
+                        <Text style={{fontFamily: 'Colton-Semi-Bold', color: 'black'}}>
+                            I agree to the
+                            <Text style={{ color: '#efcb00' }}
+                                onPress={() => openPrivacyPage()}> privacy policy
+                            </Text>
+                        </Text>
+                    </TouchableOpacity>
+
+                </View>
+            ) : null}
 
             <Text style={styles.errorText}>{error}</Text>
 

@@ -42,7 +42,7 @@ export default function App() {
 
   return (
     <Provider store={store} >
-      <StatusBar hidden={true} />
+      {/* <StatusBar hidden={true} /> */}
 
       <QueryClientProvider client={queryClient}>
         <Route />
