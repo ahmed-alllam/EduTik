@@ -7,13 +7,18 @@ import styles from './styles'
 const CommentItem = ({ item }) => {
     const user = useUser(item.creator).data
     console.log(user)
+
+    if (!user) {
+        return null
+    }
+
     return (
         <View style={styles.container}>
             <Image style={generalStyles.avatarSmall} source={{ uri: user.photoURL }} />
 
             <View style={styles.containerText}>
                 <Text style={styles.displayName}>{user.displayName}</Text>
-                <Text>{item.comment}</Text>
+                <Text style={styles.commentText}>{item.comment}</Text>
             </View>
         </View>
     )

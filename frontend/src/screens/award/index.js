@@ -95,12 +95,12 @@ const AwardsScreen = () => {
                                 </Text>
                             </View>
 
-                            <View style={{ flexDirection: 'row', marginLeft: 20, marginTop: 10 }}>
-                                <Text style={{ color: 'white', fontSize: 25, flex: 1, textAlign: 'right', marginRight: 70 , fontFamily: 'Colton-Semi-Bold' }}>
+                            <View style={{ flexDirection: 'row', marginLeft: 20, marginTop: 10, justifyContent: 'space-between', width:'100%'}}>
+                                <Text style={{ color: 'white',flex:1,  fontSize: 25, marginLeft: 20 , fontFamily: 'Colton-Semi-Bold',  textAlign:'left'}}>
                                     Rank: #{rank}
                                 </Text>
 
-                                <Text style={{ color: 'white', fontSize: 25, flex: 1, marginLeft: 70, fontFamily: 'Colton-Semi-Bold' }}>
+                                <Text style={{ color: 'white', flex:1, fontSize: 25, marginRight: 20, fontFamily: 'Colton-Semi-Bold', textAlign: 'right'}}>
                                     {auth.currentUser.score} Points
                                 </Text>
                             </View>

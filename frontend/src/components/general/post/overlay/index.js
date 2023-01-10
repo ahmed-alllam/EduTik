@@ -62,7 +62,7 @@ export default function PostSingleOverlay({ user, post }) {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={{width:'80%'}}>
         <Text style={styles.displayName}>{user?.displayName}</Text>
         <Text style={styles.description}>{post.description}</Text>
       </View>

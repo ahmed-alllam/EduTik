@@ -1,5 +1,17 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 31,
+            "targetSdkVersion": 31,
+            "buildToolsVersion": "31.0.0"
+          }
+        }
+      ]
+    ],
     "name": "EduTik",
     "slug": "EduTik",
     "version": "0.1.0",

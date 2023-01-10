@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, TextInput, CheckBox } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput } from 'react-native'
 import { Feather } from '@expo/vector-icons';
 import styles from './style';
 import { useDispatch } from 'react-redux'

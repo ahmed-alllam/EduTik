@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'white'
     },
     containerMain: {
         padding: 30,
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
 
     containerBottomButton: {
 
-        backgroundColor: 'ghostwhite',
+        backgroundColor: 'white',
         padding: 20,
         alignItems: 'center',
         borderStyle: 'solid',

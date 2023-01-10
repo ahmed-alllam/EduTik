@@ -51,7 +51,7 @@ const CommentModal = ({ post }) => {
                         style={styles.input}
                     />
                     <TouchableOpacity onPress={() => handleCommentSend()}>
-                        <Ionicons name="arrow-up-circle" size={34} color={'crimson'} />
+                        <Ionicons name="arrow-up-circle" size={34} color={'#f9d264'} />
                     </TouchableOpacity>
                 </View>
             : null

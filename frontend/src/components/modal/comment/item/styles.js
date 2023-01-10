@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
         color: 'gray',
         fontSize: 13,
         fontFamily: 'Colton-Bold',
-    }
+    },
+    commentText: {
+        color: 'black',
+        fontSize: 15,
+        fontFamily: 'Colton-Semi-Bold',
+    },
 })
 export default styles

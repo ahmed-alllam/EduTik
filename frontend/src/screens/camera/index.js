@@ -127,8 +127,9 @@ export default function CameraScreen() {
 
     if (!hasCameraPermissions || !hasAudioPermissions || !hasGalleryPermissions) {
         return (
-            <View>
-                <Text>Please enable camera permissions from your settings </Text>
+            <View style={styles.container}>
+                <Text textAlign="center">
+                    Please enable camera permissions from your settings </Text>
             </View>
         )
     }

@@ -23,6 +23,9 @@ const styles = StyleSheet.create({
         marginTop: 10,
         color: 'white',
         fontFamily: 'Colton-Medium',
+        maxHeight: 50,
+        // width: '800',
+        // textAlign: 'right'
     },
     avatar: {
         height: 50,
