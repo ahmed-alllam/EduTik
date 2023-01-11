@@ -120,7 +120,7 @@ export const PostSingle = forwardRef(({ item, index, currentVisibleIndex }, pare
                 <Video
                     ref={ref}
                     style={styles.container}
-                    resizeMode={Video.RESIZE_MODE_COVER}
+                    resizeMode="cover"
                     shouldPlay={isPlaying && screenIsFocused && index === currentVisibleIndex}
                     isLooping
                     usePoster
