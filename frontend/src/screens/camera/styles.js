@@ -5,6 +5,13 @@ const styles = StyleSheet.create({
         marginTop: 30,
         backgroundColor: 'black',
     },
+    container2: {
+        flex: 1,
+        marginTop: 30,
+        backgroundColor: 'black',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     camera: {
         flex: 1,
         backgroundColor: 'black',

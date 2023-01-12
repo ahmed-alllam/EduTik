@@ -64,6 +64,7 @@ export default function FeedScreen({ route }) {
         } else {
             getFeed(lastVisible).then((newposts) => {
                 setPosts([...posts, ...newposts])
+                console.log('fff loaded more posts', newposts.length)
 
                 if (newposts.length > 0) {
                     // setLastVisible(newposts[newposts.length - 1])
@@ -72,6 +73,7 @@ export default function FeedScreen({ route }) {
                     getFeed(null).then((newposts) => {
                         setIters(iters + 1);
                         setPosts([...posts, ...newposts])
+                        console.log('fff loaded more posts', newposts.length)
                         if (newposts.length > 0) {
                             // setLastVisible(newposts[newposts.length - 1])
                         }

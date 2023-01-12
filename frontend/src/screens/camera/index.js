@@ -127,8 +127,8 @@ export default function CameraScreen() {
 
     if (!hasCameraPermissions || !hasAudioPermissions || !hasGalleryPermissions) {
         return (
-            <View style={styles.container}>
-                <Text textAlign="center">
+            <View style={styles.container2}>
+                <Text style={{ color: 'white', fontSize: 16, textAlign: 'center', marginLeft: 5 , fontFamily: 'Colton-Black' }}>
                     Please enable camera permissions from your settings </Text>
             </View>
         )
