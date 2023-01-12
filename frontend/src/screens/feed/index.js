@@ -24,6 +24,10 @@ export default function FeedScreen({ route }) {
 
     console.log('feed created');
 
+    const randomID = () => {
+        return Math.random().toString(36).substr(2, 9);
+    }
+
     useEffect(() => {
         console.log('feed useEffect , length', posts.length);
         if (profile) {
@@ -48,10 +52,6 @@ export default function FeedScreen({ route }) {
                         // reiterate
                         getPostsByUserId(null, creator).then((newposts) => {
                             setIters(iters + 1);
-                            newposts = newposts.map((post) => {
-                                post.id = post.id + iters;
-                                return post;
-                            });
                             setPosts([...posts, ...newposts])
                             if (newposts.length > 0) {
                                 // setLastVisible(newposts[newposts.length - 1])
@@ -71,10 +71,6 @@ export default function FeedScreen({ route }) {
                     // reiterate
                     getFeed(null).then((newposts) => {
                         setIters(iters + 1);
-                        newposts = newposts.map((post) => {
-                            post.id = post.id + iters;
-                            return post;
-                        });
                         setPosts([...posts, ...newposts])
                         if (newposts.length > 0) {
                             // setLastVisible(newposts[newposts.length - 1])
@@ -140,7 +136,7 @@ export default function FeedScreen({ route }) {
                 }}
                 renderItem={renderItem}
                 pagingEnabled
-                keyExtractor={item => item.id}
+                keyExtractor={item => item.id + randomID()}
                 decelerationRate={'normal'}
                 onEndReached={handleLoadMore}
                 onEndReachedThreshold={0.5}

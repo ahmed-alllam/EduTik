@@ -16,7 +16,7 @@
     "slug": "EduTik",
     "version": "0.1.0",
     "orientation": "portrait",
-    "icon": "./assets/logo-icon.png",
+    "icon": "./assets/logo-icon2.png",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",

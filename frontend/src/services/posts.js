@@ -91,15 +91,17 @@ export const addComment = (postId, creator, comment) => {
 }
 
 export const commentListner = (postId, setCommentList) => {
+  console.log('commentListner', postId);
+  
   commentListnerInstance = firebase.firestore()
     .collection('post')
     .doc(postId)
     .collection('comments')
     .orderBy('creation', 'desc')
     .onSnapshot((snapshot) => {
-      if (snapshot.docChanges().length == 0) {
-        return;
-      }
+      // if (snapshot.docChanges().length == 0) {
+      //   return;
+      // }
       let comments = snapshot.docs.map((value) => {
         const id = value.id;
         const data = value.data();

@@ -1,4 +1,4 @@
-import BottomSheet from '@gorhom/bottom-sheet'
+import BottomSheetModalProvider from '@gorhom/bottom-sheet'
 import React, { useEffect, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { clearModal } from '../../redux/actions/modal';
@@ -28,15 +28,17 @@ const Modal = () => {
     }
 
     return (
-        <BottomSheet
+        <BottomSheetModalProvider
             ref={bottomSheetRef}
             snapPoints={["50%"]}
             index={-1}
             onClose={onClose}
             handleHeight={40}
+            enabledInnerScrolling={true}
+            enabledContentGestureInteraction={true}
             enablePanDownToClose>
             {renderContent()}
-        </BottomSheet>
+        </BottomSheetModalProvider>
     )
 }
 

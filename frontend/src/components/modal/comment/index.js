@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, TextInput, TouchableOpacity, FlatList } from 'react-native'
+import { View, Image, TextInput, TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
 import styles from './styles'
 import { Ionicons } from '@expo/vector-icons'
 import { addComment, clearCommentListener, commentListner } from '../../../services/posts'
 import CommentItem from './item'
 import { generalStyles } from '../../../styles'
+import {
+    FlatList
+  } from 'react-native-gesture-handler';
 
 const CommentModal = ({ post }) => {
     const [comment, setComment] = useState('')
@@ -13,6 +16,7 @@ const CommentModal = ({ post }) => {
     const currentUser = useSelector(state => state.auth.currentUser)
 
     useEffect(() => {
+        console.log("allllam " , post.id)
         commentListner(post.id, (comments) => {
             setCommentList(comments);
         })
@@ -39,7 +43,7 @@ const CommentModal = ({ post }) => {
                 keyExtractor={(item) => item.id}
             />
 
-            {currentUser ? 
+            {currentUser ?
                 <View style={styles.containerInput}>
                     <Image
                         style={generalStyles.avatarSmall}
@@ -54,7 +58,7 @@ const CommentModal = ({ post }) => {
                         <Ionicons name="arrow-up-circle" size={34} color={'#f9d264'} />
                     </TouchableOpacity>
                 </View>
-            : null
+                : null
             }
         </View>
     )

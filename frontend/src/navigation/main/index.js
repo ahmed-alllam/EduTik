@@ -12,6 +12,7 @@ import EditProfileFieldScreen from '../../screens/profile/edit/field';
 import Modal from '../../components/modal';
 import ProfileScreen from '../../screens/profile';
 import FeedScreen from '../../screens/feed';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const Stack = createStackNavigator()
 
@@ -33,6 +34,8 @@ export default function Route() {
     console.log('loaded')
 
     return (
+        <GestureHandlerRootView style={{ flex: 1 }}>
+
         <NavigationContainer>
             <Stack.Navigator>
                 {currentUserObj.currentUser == null ?
@@ -57,5 +60,6 @@ export default function Route() {
             </Stack.Navigator>
             <Modal />
         </NavigationContainer>
+        </GestureHandlerRootView>
     )
 }

@@ -48,7 +48,7 @@ export default function CameraScreen() {
             setHasGalleryPermissions(galleryStatus.status == 'granted')
 
             if (galleryStatus.status == 'granted') {
-                const userGalleryMedia = await MediaLibrary.getAssetsAsync({ sortBy: ['creationTime'], mediaType: ['video'] })
+                const userGalleryMedia = await MediaLibrary.getAssetsAsync({ sortBy: ['creationTime'] })
                 setGalleryItems(userGalleryMedia.assets)
             }
         })()
