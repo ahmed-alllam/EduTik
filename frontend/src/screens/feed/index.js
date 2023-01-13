@@ -17,10 +17,6 @@ export default function FeedScreen({ route }) {
 
     console.log('feed created');
 
-    const randomID = () => {
-        return Math.random().toString(36).substr(2, 9);
-    }
-
     useEffect(() => {
         console.log('feed useEffect , length', posts.length);
         if (profile) {
@@ -133,7 +129,7 @@ export default function FeedScreen({ route }) {
                 }}
                 renderItem={renderItem}
                 pagingEnabled
-                keyExtractor={item => item.id + randomID()}
+                keyExtractor={(item, index) => item.id + '' + index}
                 decelerationRate={'normal'}
                 onEndReached={handleLoadMore}
                 onEndReachedThreshold={0.5}

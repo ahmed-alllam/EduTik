@@ -137,7 +137,10 @@ export const PostSingle = forwardRef(({ item, index, currentVisibleIndex }, pare
                         left: '50%',
                         transform: [{ translateX: -50 }, { translateY: -50 }],
                         opacity: isPlaying ? 0 : 1,
-                        zIndex: 1000
+                        zIndex: 1000,
+                        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+                        textShadowOffset: { width: -1, height: 1 },
+                        textShadowRadius: 10,
                     }}
                 />
             </TouchableOpacity>
