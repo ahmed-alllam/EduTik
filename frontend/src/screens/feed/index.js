@@ -5,13 +5,6 @@ import PostSingle from '../../components/general/post'
 import { getFeed, getPostsByUserId } from '../../services/posts'
 import styles from './styles'
 
-/**
- * Component that renders a list of posts meant to be 
- * used for the feed screen.
- * 
- * On start make fetch for posts then use a flatList 
- * to display/control the posts.
- */
 export default function FeedScreen({ route }) {
     const { setCurrentUserProfileItemInView, creator, profile, initCreation } = route.params
     const [posts, setPosts] = useState([])
@@ -123,6 +116,8 @@ export default function FeedScreen({ route }) {
     return (
         <View style={styles.container}>
             <FlatList
+                showsVerticalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
                 style={{backgroundColor: 'black'}}
                 data={posts}
                 windowSize={4}

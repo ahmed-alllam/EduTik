@@ -19,6 +19,16 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         paddingHorizontal: 10
     },
+    createAccountButton: {
+        flexDirection: 'row',
+        backgroundColor: '#f9d264',
+        color: 'white',
+        borderRadius: 10,
+        margin: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 15,
+    }
 })
 
 export default styles

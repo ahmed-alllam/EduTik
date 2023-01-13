@@ -14,9 +14,9 @@
     ],
     "name": "EduTik",
     "slug": "EduTik",
-    "version": "0.1.0",
+    "version": "0.1.2",
     "orientation": "portrait",
-    "icon": "./assets/logo-icon2.png",
+    "icon": "./assets/logo-icon.png",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
@@ -34,6 +34,7 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.edutik.app",
+      "versionCode": 3,
       "googleServicesFile": "./google-services.json"
     },
     "web": {

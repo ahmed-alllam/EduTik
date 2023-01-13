@@ -17,7 +17,7 @@ export default function EditProfileFieldScreen({ route }) {
             .then(() => navigation.goBack())
     }
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <NavBarGeneral title="Edit Profile" rightButton={{ display: true, name: 'Edit', action: onSave }} />
             <Divider />
             <View style={styles.mainContainer}>
@@ -29,6 +29,6 @@ export default function EditProfileFieldScreen({ route }) {
                 />
             </View>
 
-        </SafeAreaView>
+        </View>
     )
 }

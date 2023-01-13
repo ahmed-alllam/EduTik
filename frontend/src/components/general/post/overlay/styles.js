@@ -17,13 +17,20 @@ const styles = StyleSheet.create({
         color: 'white',
         // fontWeight: 'bold',
         fontFamily: 'Colton-Bold',
-        fontSize: 16
+        fontSize: 16,
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10,
     },
     description: {
         marginTop: 10,
         color: 'white',
+        fontSize: 16,
         fontFamily: 'Colton-Medium',
         maxHeight: 50,
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10,
         // width: '800',
         // textAlign: 'right'
     },
@@ -36,7 +43,8 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     leftContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        flex: 3,
     },
     actionButton: {
         paddingBottom: 16
@@ -44,7 +52,15 @@ const styles = StyleSheet.create({
     actionButtonText: {
         color: 'white',
         textAlign: 'center',
-        marginTop: 4
+        marginTop: 4,
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10
+    },
+    actionButtonIcon: {
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        textShadowOffset: { width: -1, height: 1 },
+        textShadowRadius: 10
     }
 })
 

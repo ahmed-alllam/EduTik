@@ -10,6 +10,8 @@ import Route from './src/navigation/main';
 import rootReducer from './src/redux/reducers';
 import { useFonts } from 'expo-font';
 
+import { I18nManager} from 'react-native';
+I18nManager.allowRTL(false);
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 

@@ -25,6 +25,8 @@ export default function Route() {
         dispatch(userAuthStateListener());
     }, [])
 
+    const navigationRef = React.createRef();
+
     if (!currentUserObj.loaded) {
         return (
             <View></View>
@@ -36,7 +38,7 @@ export default function Route() {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
 
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
             <Stack.Navigator>
                 {currentUserObj.currentUser == null ?
 
@@ -58,7 +60,7 @@ export default function Route() {
                     </>
                 }
             </Stack.Navigator>
-            <Modal />
+            <Modal navigationRef={navigationRef} />
         </NavigationContainer>
         </GestureHandlerRootView>
     )

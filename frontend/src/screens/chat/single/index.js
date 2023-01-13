@@ -29,7 +29,7 @@ const ChatSingleScreen = ({ route }) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <NavBarGeneral title='chat' />
             <FlatList
                 data={messages}
@@ -47,7 +47,7 @@ const ChatSingleScreen = ({ route }) => {
                     <Ionicons name="arrow-up-circle" size={34} color={'crimson'} />
                 </TouchableOpacity>
             </View >
-        </SafeAreaView >
+        </View>
     )
 }
 

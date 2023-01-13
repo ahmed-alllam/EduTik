@@ -16,7 +16,17 @@ const styles = StyleSheet.create({
     uploadingContainer: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flexDirection: 'row'
+    },
+    uploadingText: {
+        fontFamily: 'Colton-Medium',
+        fontSize: 18,
+        marginRight: 20,
+        color: '#f9d264',
+        fontWeight: 'bold',
+        color: '#f9d264',
+        textAlign: 'center'
     },
     spacer: {
         flex: 1

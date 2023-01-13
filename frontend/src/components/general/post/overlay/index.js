@@ -47,6 +47,8 @@ export default function PostSingleOverlay({ user, post }) {
   const handleUpdateLike = useMemo(
     () =>
       throttle(500, true, (currentLikeStateInst) => {
+        if (!currentUser) return;
+
         setCurrentLikeState({
           state: !currentLikeStateInst.state,
           counter:
@@ -54,7 +56,6 @@ export default function PostSingleOverlay({ user, post }) {
             (currentLikeStateInst.state ? -1 : 1),
         });
 
-        if (!currentUser) return;
         updateLike(post.id, currentUser.uid, currentLikeStateInst.state);
       }),
     []
@@ -62,7 +63,7 @@ export default function PostSingleOverlay({ user, post }) {
 
   return (
     <View style={styles.container}>
-      <View style={{width:'80%'}}>
+      <View style={{flex: 17 }}>
         <Text style={styles.displayName}>{user?.displayName}</Text>
         <Text style={styles.description}>{post.description}</Text>
       </View>
@@ -80,6 +81,7 @@ export default function PostSingleOverlay({ user, post }) {
           <Ionicons
             color="white"
             size={40}
+            style={styles.actionButtonIcon}
             name={currentLikeState.state ? "heart" : "heart-outline"}
           />
           <Text style={styles.actionButtonText}>
@@ -95,6 +97,7 @@ export default function PostSingleOverlay({ user, post }) {
           <Ionicons
             color="white"
             size={40}
+            style={styles.actionButtonIcon}
             name={"chatbubble"}
           />
           <Text style={styles.actionButtonText}>

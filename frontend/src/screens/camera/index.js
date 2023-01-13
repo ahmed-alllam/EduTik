@@ -60,12 +60,12 @@ export default function CameraScreen() {
 
     if (!currentUserObj.currentUser) {
         return (
-            <SafeAreaView style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity onPress={goToAuth} style={styles.createAccountButton} >
                     <Feather name="user-plus" size={24} color="white" />
                     <Text style={{ color: 'white', fontSize: 16, textAlign: 'center', marginLeft: 5 , fontFamily: 'Colton-Black' }}>Create an account to post videos</Text>
                 </TouchableOpacity>
-            </SafeAreaView>
+            </View>
         )
     }
 

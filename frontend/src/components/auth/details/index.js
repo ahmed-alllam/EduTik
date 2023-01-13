@@ -69,7 +69,7 @@ export default function AuthDetails({ authPage, setDetailsPage }) {
                 if (email == '' || password == '') {
                     setError('Please fill in all fields')
                 } else {
-                    setError('An Error occured, Try a different email and password')
+                    setError('An Error occured, Try a different email or password')
                 }
             })
     }

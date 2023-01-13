@@ -46,6 +46,7 @@ export default function SavePostScreen(props) {
     if (requestRunning) {
         return (
             <View style={styles.uploadingContainer}>
+                <Text style={styles.uploadingText}>Uploading...</Text>
                 <ActivityIndicator color='#f9d264' size='large' />
             </View>
         )

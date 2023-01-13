@@ -11,7 +11,7 @@ const ChatScreen = () => {
         return (<ChatListItem chat={item} />)
     }
     return (
-        <SafeAreaView>
+        <View>
             <NavBarGeneral leftButton={{ display: false }} title='Direct messages' />
             <FlatList
                 data={chats}
@@ -20,7 +20,7 @@ const ChatScreen = () => {
                 keyExtractor={item => item.id}
             />
             <Text></Text>
-        </SafeAreaView>
+        </View>
     )
 }
 

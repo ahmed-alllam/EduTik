@@ -60,10 +60,10 @@ export default function ProfileScreen({ navigation, route }) {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             {user ?
                 (
-                    <SafeAreaView>
+                    <View>
                         <ProfileNavBar user={user} />
                         <ScrollView>
                             <View>
@@ -71,14 +71,14 @@ export default function ProfileScreen({ navigation, route }) {
                                 <ProfilePostList posts={userPosts} onEndReached={handleLoadMore}/>
                             </View>
                         </ScrollView>
-                    </SafeAreaView>)
-                : (<SafeAreaView style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                    </View>)
+                : (<View style={{ backgroundColor: 'white', flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <TouchableOpacity onPress={goToAuth} style={styles.createAccountButton} >
                         <Feather name="user-plus" size={24} color="white" />
                         <Text style={{ color: 'white', fontSize: 18, textAlign: 'center', marginLeft: 5, fontFamily: 'Colton-Black' }}>Create a free account</Text>
                     </TouchableOpacity>
-                </SafeAreaView>
+                </View>
                 )}
-        </SafeAreaView>
+        </View>
     )
 }
