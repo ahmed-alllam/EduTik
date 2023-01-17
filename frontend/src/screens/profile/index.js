@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, ScrollView, Button } from 'react-native'
 import { useSelector } from 'react-redux'
+import { SafeAreaView } from 'react-native-safe-area-context'
+
 import styles from './styles'
 import ProfileNavBar from '../../components/profile/navBar'
 import ProfileHeader from '../../components/profile/header'
 import ProfilePostList from '../../components/profile/postList'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { CurrentUserProfileItemInViewContext } from '../../navigation/feed'
 import { useUser } from '../../hooks/useUser'
 import { getPostsByUserId } from '../../services/posts'
@@ -60,7 +61,7 @@ export default function ProfileScreen({ navigation, route }) {
     };
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {user ?
                 (
                     <View>
@@ -79,6 +80,6 @@ export default function ProfileScreen({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
                 )}
-        </View>
+        </SafeAreaView>
     )
 }

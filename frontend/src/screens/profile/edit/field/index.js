@@ -1,8 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
-import { View, Text, TextInput } from 'react-native'
-import { Divider } from 'react-native-paper'
+import {  View, Text, TextInput } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { Divider } from 'react-native-paper'
 import NavBarGeneral from '../../../../components/general/navbar'
 import { saveUserField } from '../../../../services/user'
 import { generalStyles } from '../../../../styles'
@@ -17,7 +17,7 @@ export default function EditProfileFieldScreen({ route }) {
             .then(() => navigation.goBack())
     }
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <NavBarGeneral title="Edit Profile" rightButton={{ display: true, name: 'Edit', action: onSave }} />
             <Divider />
             <View style={styles.mainContainer}>
@@ -29,6 +29,6 @@ export default function EditProfileFieldScreen({ route }) {
                 />
             </View>
 
-        </View>
+        </SafeAreaView>
     )
 }

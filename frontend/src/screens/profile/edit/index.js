@@ -30,7 +30,7 @@ export default function EditProfileScreen() {
         }
     }
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <NavBarGeneral title="Edit Profile" />
             <View style={styles.imageContainer}>
                 <TouchableOpacity
@@ -56,6 +56,6 @@ export default function EditProfileScreen() {
                     </View>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }

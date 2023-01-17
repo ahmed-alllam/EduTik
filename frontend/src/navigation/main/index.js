@@ -36,7 +36,7 @@ export default function Route() {
     console.log('loaded')
 
     return (
-        <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{ flex: 1}}>
 
         <NavigationContainer ref={navigationRef}>
             <Stack.Navigator>

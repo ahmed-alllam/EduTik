@@ -10,8 +10,17 @@ import Route from './src/navigation/main';
 import rootReducer from './src/redux/reducers';
 import { useFonts } from 'expo-font';
 
-import { I18nManager} from 'react-native';
-I18nManager.allowRTL(false);
+import { I18nManager } from 'react-native';
+import * as Updates from 'expo-updates';
+
+function updateApp() {
+  if (I18nManager.isRTL) {
+    I18nManager.allowRTL(false);
+    I18nManager.forceRTL(false);
+    Updates.reloadAsync();
+  }
+}
+
 
 const store = createStore(rootReducer, applyMiddleware(thunk))
 
@@ -26,7 +35,7 @@ if (firebase.apps.length === 0) {
 import { LogBox } from 'react-native';
 
 
-LogBox.ignoreLogs(['Setting a timer for a long period of time'])
+LogBox.ignoreAllLogs()
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchInterval: false, staleTime: Infinity } }
@@ -34,6 +43,7 @@ const queryClient = new QueryClient({
 
 export default function App() {
 
+  updateApp();
 
   const [fontsLoaded] = useFonts({
     'Colton-Black': require('./assets/fonts/HDColton-Black.otf'),
@@ -44,8 +54,7 @@ export default function App() {
 
   return (
     <Provider store={store} >
-      {/* <StatusBar hidden={true} /> */}
-
+      <StatusBar backgroundColor={'transparent'} translucent />
       <QueryClientProvider client={queryClient}>
         <Route />
       </QueryClientProvider>

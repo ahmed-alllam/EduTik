@@ -1,6 +1,7 @@
 import { StackActions, useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { ActivityIndicator, Image, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import styles from './styles'
 import { Feather } from '@expo/vector-icons'
@@ -52,7 +53,7 @@ export default function SavePostScreen(props) {
         )
     }
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={styles.formContainer}>
                 <TextInput
                     style={styles.inputText}
@@ -82,6 +83,6 @@ export default function SavePostScreen(props) {
                     <Text style={styles.postButtonText}>Post</Text>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
