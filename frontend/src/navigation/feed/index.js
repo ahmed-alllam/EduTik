@@ -14,16 +14,13 @@ const FeedNavigation = () => {
         <CurrentUserProfileItemInViewContext.Provider value={currentUserProfileItemInView}>
             <Navigator
                 initialRouteName="feedList"
+                swipeEnabled={false}
                 tabBar={() => <></>}>
                 <Screen
                     name="feedList"
                     component={FeedScreen}
                     initialParams={{ setCurrentUserProfileItemInView, profile: false }} />
-                <Screen
-                    name="feedProfile"
-                    component={ProfileScreen}
-                    initialParams={{ initialUserId: null }}
-                />
+               
             </Navigator>
         </CurrentUserProfileItemInViewContext.Provider>
 

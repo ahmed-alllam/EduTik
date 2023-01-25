@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Dimensions, FlatList, View,} from 'react-native'
+import { Dimensions, FlatList, View, } from 'react-native'
 import useMaterialNavBarHeight from '../../hooks/useMaterialNavBarHeight'
 import PostSingle from '../../components/general/post'
 import { getFeed, getPostsByUserId } from '../../services/posts'
@@ -93,7 +93,7 @@ export default function FeedScreen({ route }) {
         }
     });
 
-    console.log('ahmed height', useMaterialNavBarHeight(profile));    
+    console.log('ahmed height', useMaterialNavBarHeight(profile));
     /**
      * renders the item shown in the FlatList
      * 
@@ -114,11 +114,11 @@ export default function FeedScreen({ route }) {
             <FlatList
                 showsVerticalScrollIndicator={false}
                 showsHorizontalScrollIndicator={false}
-                style={{backgroundColor: 'black'}}
+                style={{ backgroundColor: 'black' }}
                 data={posts}
                 windowSize={4}
-                initialNumToRender={0}
-                maxToRenderPerBatch={2}
+                initialNumToRender={2}
+                maxToRenderPerBatch={4}
                 removeClippedSubviews
                 onLayout={(event) => {
                     const { height } = event.nativeEvent.layout;
