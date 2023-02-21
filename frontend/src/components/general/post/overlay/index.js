@@ -8,6 +8,8 @@ import { throttle } from "throttle-debounce";
 import { openCommentModal } from '../../../../redux/actions/modal';
 import { useNavigation } from '@react-navigation/core';
 
+import * as Sharing from 'expo-sharing';
+
 /**
  * Function that renders a component meant to be overlapped on
  * top of the post with the post info like user's display name and avatar
@@ -27,7 +29,7 @@ export default function PostSingleOverlay({ user, post }) {
 
   useEffect(() => {
 
-    if(!currentUser) return
+    if (!currentUser) return
 
     getLikeById(post.id, currentUser.uid).then((res) => {
       setCurrentLikeState({
@@ -61,9 +63,24 @@ export default function PostSingleOverlay({ user, post }) {
     []
   );
 
+
+  const handleShare = () => {
+    // implement share
+
+    let message = `Check out this video about ${post.description} on EduTik!`;
+    let url = "https://edutik.page.link/" + post.id;
+
+    Sharing.shareAsync(url, {
+      dialogTitle: 'Share this short video',
+      subject: message,
+      message: message,
+    })
+  };
+  
+
   return (
     <View style={styles.container}>
-      <View style={{flex: 17 }}>
+      <View style={{ flex: 17 }}>
         <Text style={styles.displayName}>{user?.displayName}</Text>
         <Text style={styles.description}>{post.description}</Text>
       </View>
@@ -88,6 +105,23 @@ export default function PostSingleOverlay({ user, post }) {
             {currentLikeState.counter}
           </Text>
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => handleShare()}
+        >
+          <Ionicons
+            color="white"
+            size={45}
+            style={styles.actionButtonIcon}
+            name={"arrow-redo"}
+          />
+
+          <Text style={styles.actionButtonText}>
+            Share
+          </Text>        
+          
+          </TouchableOpacity>
 
 
         <TouchableOpacity

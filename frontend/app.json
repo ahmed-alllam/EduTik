@@ -14,9 +14,9 @@
     ],
     "name": "EduTik",
     "slug": "EduTik",
-    "version": "0.1.5",
+    "version": "0.1.6",
     "orientation": "portrait",
-    "icon": "./assets/logo2.png",
+    "icon": "./assets/logo3.png",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
@@ -30,15 +30,28 @@
     ],
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/logo2.png",
+        "foregroundImage": "./assets/logo3.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.edutik.app",
-      "versionCode": 6,
-      "googleServicesFile": "./google-services.json"
+      "versionCode": 7,
+      "googleServicesFile": "./google-services.json",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "data": {
+            "scheme": "https",
+            "host": "edutik.site"
+          },
+          "category": [
+            "BROWSABLE",
+            "DEFAULT"
+          ]
+        }
+      ]
     },
     "web": {
-      "favicon": "./assets/logo2.png",
+      "favicon": "./assets/logo3.png",
       "config": {
         "firebase": {
           "apiKey": "AIzaSyCRzDH6m4V_hQTE5-O3BlKzpFXsnHiTezc",

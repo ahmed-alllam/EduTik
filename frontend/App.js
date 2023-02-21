@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import * as firebase from 'firebase';
 import React from 'react';
-import { StatusBar } from 'react-native';
+import { Alert, StatusBar } from 'react-native';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { Provider } from 'react-redux';
 import { applyMiddleware, createStore } from 'redux';
@@ -12,6 +12,10 @@ import { useFonts } from 'expo-font';
 
 import { I18nManager } from 'react-native';
 import * as Updates from 'expo-updates';
+
+import { useEffect } from 'react';
+import * as Linking from 'expo-linking';
+
 
 function updateApp() {
   if (I18nManager.isRTL) {
@@ -42,6 +46,45 @@ const queryClient = new QueryClient({
 })
 
 export default function App() {
+
+  // listen to deep links even when app is closed
+  useEffect(() => {
+    Linking.addEventListener('url', (event) => {
+      const { path, queryParams } = Linking.parse(event.url);
+      console.log('path', path);
+      console.log('queryParams', queryParams);
+
+      Alert.alert(
+        'Deep Link',
+        `Linked to app with path: ${path} and data: ${JSON.stringify(
+          queryParams
+        )}`,
+        [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+        { cancelable: false }
+      );
+    });
+  }, []);
+
+  const url = Linking.useURL();
+
+  if (url) {
+    const { hostname, path, queryParams } = Linking.parse(url);
+
+    console.log(
+      `Linked to app with hostname: ${hostname}, path: ${path} and data: ${JSON.stringify(
+        queryParams
+      )}`
+    );
+
+    Alert.alert(
+      'Deep Link',
+      `Linked to app with hostname: ${hostname}, path: ${path} and data: ${JSON.stringify(
+        queryParams
+      )}`,
+      [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+      { cancelable: false }
+    );
+  }
 
   updateApp();
 
