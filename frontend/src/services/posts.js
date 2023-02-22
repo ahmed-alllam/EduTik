@@ -1,4 +1,5 @@
-import firebase from "firebase";
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 let commentListnerInstance = null
 /**
@@ -9,8 +10,8 @@ let commentListnerInstance = null
 export const getFeed = (lastPost) =>
   new Promise((resolve, reject) => {
 
-    let query = firebase
-      .firestore()
+    let query = 
+      firestore()
       .collection("post")
       .where('verified', '==', true)
       .orderBy('creation', 'desc')
@@ -42,8 +43,8 @@ export const getFeed = (lastPost) =>
  */
 export const getLikeById = (postId, uid) =>
   new Promise((resolve, reject) => {
-    firebase
-      .firestore()
+    
+      firestore()
       .collection("post")
       .doc(postId)
       .collection("likes")
@@ -60,16 +61,16 @@ export const getLikeById = (postId, uid) =>
  */
 export const updateLike = (postId, uid, currentLikeState) => {
   if (currentLikeState) {
-    firebase
-      .firestore()
+    
+      firestore()
       .collection("post")
       .doc(postId)
       .collection("likes")
       .doc(uid)
       .delete();
   } else {
-    firebase
-      .firestore()
+    
+      firestore()
       .collection("post")
       .doc(postId)
       .collection("likes")
@@ -79,21 +80,21 @@ export const updateLike = (postId, uid, currentLikeState) => {
 };
 
 export const addComment = (postId, creator, comment) => {
-  firebase.firestore()
+  firestore()
     .collection('post')
     .doc(postId)
     .collection('comments')
     .add({
       creator,
       comment,
-      creation: firebase.firestore.FieldValue.serverTimestamp(),
+      creation: firestore.FieldValue.serverTimestamp(),
     })
 }
 
 export const commentListner = (postId, setCommentList) => {
   console.log('commentListner', postId);
   
-  commentListnerInstance = firebase.firestore()
+  commentListnerInstance = firestore()
     .collection('post')
     .doc(postId)
     .collection('comments')
@@ -118,9 +119,9 @@ export const clearCommentListener = () => {
   }
 }
 
-export const getPostsByUserId = (lastPost, uid = firebase.auth().currentUser.uid) => new Promise((resolve, reject) => {
-    let query = firebase
-      .firestore()
+export const getPostsByUserId = (lastPost, uid = auth().currentUser.uid) => new Promise((resolve, reject) => {
+    let query = 
+      firestore()
       .collection("post")
       .where('creator', '==', uid)
       .where('verified', '==', true)

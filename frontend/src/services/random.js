@@ -1,9 +1,9 @@
 
-import firebase from 'firebase'
-require('firebase/firebase-storage')
+import storage from '@react-native-firebase/storage';
+
 
 export const saveMediaToStorage = (media, path) => new Promise((resolve, reject) => {
-    const fileRef = firebase.storage().ref().child(path)
+    const fileRef = storage().ref().child(path)
 
     fetch(media)
         .then(response => {

@@ -8,7 +8,6 @@ import { throttle } from "throttle-debounce";
 import { openCommentModal } from '../../../../redux/actions/modal';
 import { useNavigation } from '@react-navigation/core';
 
-import * as Sharing from 'expo-sharing';
 
 /**
  * Function that renders a component meant to be overlapped on
@@ -70,11 +69,11 @@ export default function PostSingleOverlay({ user, post }) {
     let message = `Check out this video about ${post.description} on EduTik!`;
     let url = "https://edutik.page.link/" + post.id;
 
-    Sharing.shareAsync(url, {
-      dialogTitle: 'Share this short video',
-      subject: message,
-      message: message,
-    })
+    // Sharing.shareAsync(url, {
+    //   dialogTitle: 'Share this short video',
+    //   subject: message,
+    //   message: message,
+    // })
   };
   
 

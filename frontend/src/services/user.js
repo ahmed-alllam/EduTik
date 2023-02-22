@@ -1,10 +1,12 @@
 import { saveMediaToStorage } from './random'
-import firebase from 'firebase'
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
+
 export const saveUserProfileImage = (image) => new Promise((resolve, reject) => {
-    saveMediaToStorage(image, `profileImage/${firebase.auth().currentUser.uid}`).then((res) => {
-        firebase.firestore()
+    saveMediaToStorage(image, `profileImage/${auth().currentUser.uid}`).then((res) => {
+        firestore()
             .collection('user')
-            .doc(firebase.auth().currentUser.uid)
+            .doc(auth().currentUser.uid)
             .update({
                 photoURL: res
             })
@@ -16,9 +18,9 @@ export const saveUserProfileImage = (image) => new Promise((resolve, reject) => 
 export const saveUserField = (field, value) => new Promise((resolve, reject) => {
     let obj = {};
     obj[field] = value
-    firebase.firestore()
+    firestore()
         .collection('user')
-        .doc(firebase.auth().currentUser.uid)
+        .doc(auth().currentUser.uid)
         .update(obj)
         .then(() => resolve())
         .catch(() => reject())
@@ -30,7 +32,7 @@ export const queryUsersByEmail = (email) => new Promise((resolve, reject) => {
         resolve([])
     }
 
-    firebase.firestore()
+    firestore()
         .collection('user')
         .where('email', '>=', email)
         .where('email', '<=', email + '\uf8ff')
@@ -53,7 +55,7 @@ export const queryUsersByEmail = (email) => new Promise((resolve, reject) => {
  * @returns {Promise<Object>} user object if successful.
  */
 export const getUserById = (id) => new Promise((resolve, reject) => {
-    firebase.firestore()
+    firestore()
         .collection('user')
         .doc(id)
         .get()
@@ -73,7 +75,7 @@ export const getUserById = (id) => new Promise((resolve, reject) => {
  * @returns {Boolean} if true means the user is indeed following the other User
  */
 export const getIsFollowing = (userId, otherUserId) => new Promise((resolve, reject) => {
-    firebase.firestore()
+    firestore()
         .collection('user')
         .doc(userId)
         .collection('following')
@@ -96,18 +98,18 @@ export const getIsFollowing = (userId, otherUserId) => new Promise((resolve, rej
  */
 export const changeFollowState = ({ otherUserId, isFollowing }) => new Promise((resolve, reject) => {
     if (isFollowing) {
-        firebase.firestore()
+        firestore()
             .collection('user')
-            .doc(firebase.auth().currentUser.uid)
+            .doc(auth().currentUser.uid)
             .collection('following')
             .doc(otherUserId)
             .delete()
             .then(() => resolve())
             .catch(() => reject())
     } else {
-        firebase.firestore()
+        firestore()
             .collection('user')
-            .doc(firebase.auth().currentUser.uid)
+            .doc(auth().currentUser.uid)
             .collection('following')
             .doc(otherUserId)
             .set({})

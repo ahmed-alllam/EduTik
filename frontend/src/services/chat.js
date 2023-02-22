@@ -1,14 +1,15 @@
-import firebase from 'firebase'
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 export const chatsListener = (listener) => {
-    firebase.firestore()
+    firestore()
         .collection('chats')
-        .where('members', 'array-contains', firebase.auth().currentUser.uid)
+        .where('members', 'array-contains', auth().currentUser.uid)
         .orderBy('lastUpdate', 'desc')
         .onSnapshot(listener)
 }
 
 export const messagesListener = (listener, chatId) => {
-    firebase.firestore()
+    firestore()
         .collection('chats')
         .doc(chatId)
         .collection('messages')
@@ -17,31 +18,31 @@ export const messagesListener = (listener, chatId) => {
 }
 
 export const sendMessage = (chatId, message) => {
-    firebase.firestore()
+    firestore()
         .collection('chats')
         .doc(chatId)
         .collection('messages')
         .add({
-            creator: firebase.auth().currentUser.uid,
+            creator: auth().currentUser.uid,
             message,
-            creation: firebase.firestore.FieldValue.serverTimestamp()
+            creation: firestore.FieldValue.serverTimestamp()
         })
-    firebase.firestore()
+    firestore()
         .collection('chats')
         .doc(chatId)
         .update({
-            lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
+            lastUpdate: firestore.FieldValue.serverTimestamp(),
             lastMessage: message,
         })
 }
 
 export const createChat = (contactId) => new Promise((resolve, reject) => {
-    firebase.firestore()
+    firestore()
         .collection('chats')
         .add({
-            lastUpdate: firebase.firestore.FieldValue.serverTimestamp(),
+            lastUpdate: firestore.FieldValue.serverTimestamp(),
             lastMessage: 'Send a first message',
-            members: [contactId, firebase.auth().currentUser.uid]
+            members: [contactId, auth().currentUser.uid]
         })
         .then(resolve)
         .catch(reject)

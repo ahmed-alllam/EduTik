@@ -1,8 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { changeFollowState, getIsFollowing } from '../services/user'
 import { keys } from './queryKeys'
-import firebase from 'firebase'
-
+import auth from '@react-native-firebase/auth'
 /**
  * Mutate the state of the follow cache system
  * over a pair of users.
@@ -19,7 +18,7 @@ export const useFollowingMutation = (options = {}) => {
         ...options,
         onMutate: variables => {
             queryClient.setQueryData(
-                keys.userFollowing(firebase.auth().currentUser.uid, variables.otherUserId),
+                keys.userFollowing(auth().currentUser.uid, variables.otherUserId),
                 !variables.isFollowing)
         }
     })

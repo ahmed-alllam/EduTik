@@ -1,13 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import React, { useState } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
-import { Avatar } from 'react-native-paper'
 import { buttonStyles } from '../../../styles'
 import styles from './styles'
-import firebase from 'firebase'
-import { Feather } from '@expo/vector-icons'
-import { useFollowing } from '../../../hooks/useFollowing'
-import { useFollowingMutation } from '../../../hooks/useFollowingMutation'
+import firestore from '@react-native-firebase/firestore';
+import auth from '@react-native-firebase/auth';
 
 /**
  * Renders the header of the user profile and
@@ -57,7 +54,7 @@ export default function ProfileHeader({ user }) {
 
     console.log('user', user)
 
-    firebase.firestore().collection('post').where('creator', '==', user.uid).where('verified', '==', true).get()
+    firestore().collection('post').where('creator', '==', user.uid).where('verified', '==', true).get()
         .then((querySnapshot) => {
             setVideosCount(querySnapshot.size)
         })
@@ -78,7 +75,7 @@ export default function ProfileHeader({ user }) {
                 </View>
             </View>
 
-            {firebase.auth().currentUser && firebase.auth().currentUser.uid === user.uid ?
+            {auth().currentUser && auth().currentUser.uid === user.uid ?
                 <TouchableOpacity
                     style={buttonStyles.grayOutlinedButton}
                     onPress={() => navigation.navigate('editProfile')}

@@ -1,15 +1,15 @@
 
-import firebase from 'firebase'
-require('firebase/firebase-auth')
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 import { USER_STATE_CHANGE } from '../constants'
 import { getPostsByUser } from './post'
 
 export const userAuthStateListener = () => dispatch => {
-    firebase.auth().onAuthStateChanged((user) => {
+    auth().onAuthStateChanged((user) => {
         if (user) {
             dispatch(getCurrentUserData())
-            dispatch(getPostsByUser(firebase.auth().currentUser.uid))
+            dispatch(getPostsByUser(auth().currentUser.uid))
         } else {
             dispatch({ type: USER_STATE_CHANGE, currentUser: null, loaded: true })
         }
@@ -17,9 +17,9 @@ export const userAuthStateListener = () => dispatch => {
 }
 
 export const getCurrentUserData = () => dispatch => {
-    firebase.firestore()
+    firestore()
         .collection('user')
-        .doc(firebase.auth().currentUser.uid)
+        .doc(auth().currentUser.uid)
         .onSnapshot((res) => {
             if (res.exists) {
                 return dispatch({
@@ -32,7 +32,7 @@ export const getCurrentUserData = () => dispatch => {
 }
 
 export const login = (email, password) => dispatch => new Promise((resolve, reject) => {
-    firebase.auth().signInWithEmailAndPassword(email, password)
+    auth().signInWithEmailAndPassword(email, password)
         .then(() => {
             resolve()
         })
@@ -42,9 +42,9 @@ export const login = (email, password) => dispatch => new Promise((resolve, reje
 })
 
 export const register = (name, email, password) => dispatch => new Promise((resolve, reject) => {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    auth().createUserWithEmailAndPassword(email, password)
         .then((user) => {
-            firebase.firestore().collection('user').doc(user.user.uid)
+            firestore().collection('user').doc(user.user.uid)
                 .set({
                     displayName: name,
                     photoURL: 'https://i0.wp.com/researchictafrica.net/wp/wp-content/uploads/2016/10/default-profile-pic.jpg?fit=300%2C300&ssl=1',
@@ -55,7 +55,7 @@ export const register = (name, email, password) => dispatch => new Promise((reso
                 })
         })
         .then(() => {
-            firebase.auth().signInWithEmailAndPassword(email, password)
+            auth().signInWithEmailAndPassword(email, password)
                 .then(() => {
                 })
         })

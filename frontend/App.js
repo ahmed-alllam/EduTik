@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import * as firebase from 'firebase';
+import firebase from '@react-native-firebase/app';
 import React from 'react';
 import { Alert, StatusBar } from 'react-native';
 import { QueryClient, QueryClientProvider } from 'react-query';

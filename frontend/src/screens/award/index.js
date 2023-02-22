@@ -3,7 +3,7 @@ import { View, Text, Image, ScrollView, Button } from 'react-native'
 import styles from './styles'
 import { useSelector } from 'react-redux'
 import Leaderboard from 'react-native-leaderboard'
-import firebase from 'firebase'
+import firestore from '@react-native-firebase/firestore'
 import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { Feather } from '@expo/vector-icons';
@@ -18,7 +18,7 @@ const AwardsScreen = () => {
     const navigation = useNavigation()
 
     useEffect(() => {
-        firebase.firestore()
+        firestore()
             .collection('user')
             .orderBy('score', 'desc')
             .onSnapshot((querySnapshot) => {
@@ -35,7 +35,7 @@ const AwardsScreen = () => {
 
     useEffect(() => {
         if (auth && auth.currentUser) {
-            firebase.firestore()
+            firestore()
                 .collection('user')
                 .orderBy('score', 'desc')
                 .get()
@@ -56,7 +56,7 @@ const AwardsScreen = () => {
     }, [auth])
 
     useEffect(() => {
-        firebase.firestore()
+        firestore()
             .collection('prizes')
             .orderBy('score', 'asc')
             .onSnapshot((querySnapshot) => {
