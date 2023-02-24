@@ -55,6 +55,12 @@ export default function ProfileScreen({ navigation, route }) {
 
     }, [user, lastVisible])
 
+    // reset the last visible post when the user changes
+    useEffect(() => {
+        setUserPosts([])
+        setLastVisible(null);
+    }, [user])
+
     const handleLoadMore = () => {
         console.log('handleLoadMore');
         setLastVisible(userPosts[userPosts.length - 1]);

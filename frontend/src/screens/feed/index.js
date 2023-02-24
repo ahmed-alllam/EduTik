@@ -4,9 +4,10 @@ import useMaterialNavBarHeight from '../../hooks/useMaterialNavBarHeight'
 import PostSingle from '../../components/general/post'
 import { getFeed, getPostsByUserId } from '../../services/posts'
 import styles from './styles'
+import firestore from '@react-native-firebase/firestore';
 
 export default function FeedScreen({ route }) {
-    const { setCurrentUserProfileItemInView, creator, profile, initCreation } = route.params
+    const { setCurrentUserProfileItemInView, creator, profile, initCreation, postID } = route.params
     const [posts, setPosts] = useState([])
     const mediaRefs = useRef([])
     const [lastVisible, setLastVisible] = useState(null);
@@ -16,15 +17,17 @@ export default function FeedScreen({ route }) {
     const [layoutHeight, setLayoutHeight] = useState(0);
 
     console.log('feed created');
+    const [profile2, setProfile2] = useState(profile);
 
     useEffect(() => {
         console.log('feed useEffect , length', posts.length);
-        if (profile) {
+        if (profile2) {
             if (initCreation && !used) {
-                let creationtemp = initCreation;
-                creationtemp.seconds = creationtemp.seconds + 1;
+                console.log('initCreation', initCreation);
+                let creationtemp = {};
+                creationtemp.seconds = initCreation.seconds - 1;
                 console.log('creationtemp', creationtemp);
-                getPostsByUserId({ creation: creationtemp }, creator).then((newposts) => {
+                getPostsByUserId({ creation: creationtemp }, creator, false).then((newposts) => {
                     setPosts(newposts)
                     if (newposts.length > 0) {
                         // setLastVisible(newposts[newposts.length - 1])
@@ -34,12 +37,12 @@ export default function FeedScreen({ route }) {
             } else {
                 getPostsByUserId(lastVisible, creator).then((newposts) => {
                     setPosts([...posts, ...newposts])
-
+                    
                     if (newposts.length > 0) {
                         // setLastVisible(newposts[newposts.length - 1])
                     } else {
-                        // reiterate
-                        getPostsByUserId(null, creator).then((newposts) => {
+                        setProfile2(false);
+                        getFeed(lastVisible).then((newposts) => {
                             setIters(iters + 1);
                             setPosts([...posts, ...newposts])
                             if (newposts.length > 0) {
@@ -51,25 +54,50 @@ export default function FeedScreen({ route }) {
                 })
             }
         } else {
-            getFeed(lastVisible).then((newposts) => {
-                setPosts([...posts, ...newposts])
-                console.log('fff loaded more posts', newposts.length)
+            let postid = postID;
+            if (postid && !used) {
+                firestore().collection('post').doc(postid).get()
+                .then((doc) => {
+                    if (doc.exists) {
+                        console.log("Document data:", doc.data());
 
-                if (newposts.length > 0) {
-                    // setLastVisible(newposts[newposts.length - 1])
-                } else {
-                    // reiterate
-                    getFeed(null).then((newposts) => {
-                        setIters(iters + 1);
-                        setPosts([...posts, ...newposts])
-                        console.log('fff loaded more posts', newposts.length)
-                        if (newposts.length > 0) {
-                            // setLastVisible(newposts[newposts.length - 1])
+                        let creationtemp = {};
+                        creationtemp.seconds = doc.data().creation.seconds - 1;
+                        console.log('creationtemp', creationtemp);
+                        getFeed({ creation: creationtemp }, false).then((newposts) => {
+                            setPosts(newposts)
+                            if (newposts.length > 0) {
+                                // setLastVisible(newposts[newposts.length - 1])
+                            }
+                        })
+                        setUsed(true);
+                    } else {
+                        console.log("No such document!");
+                    }})
+                .catch((error) => {
+                    console.log('error', error);
+                });
+            } else {
+                getFeed(lastVisible).then((newposts) => {
+                    setPosts([...posts, ...newposts])
+                    console.log('fff loaded more posts', newposts.length)
+
+                    if (newposts.length > 0) {
+                        // setLastVisible(newposts[newposts.length - 1])
+                    } else {
+                        // reiterate
+                        getFeed(null).then((newposts) => {
+                            setIters(iters + 1);
+                            setPosts([...posts, ...newposts])
+                            console.log('fff loaded more posts', newposts.length)
+                            if (newposts.length > 0) {
+                                // setLastVisible(newposts[newposts.length - 1])
+                            }
                         }
+                        )
                     }
-                    )
-                }
-            })
+                })
+            }
         }
     }, [lastVisible])
 
@@ -87,7 +115,7 @@ export default function FeedScreen({ route }) {
     const onViewableItemsChanged = useRef(({ viewableItems, changed }) => {
         if (viewableItems && viewableItems.length > 0) {
             setCurrentVisibleIndex(viewableItems[0].index)
-            if (!profile) {
+            if (!profile && setCurrentUserProfileItemInView) {
                 setCurrentUserProfileItemInView(viewableItems[0].item.creator)
             }
         }
@@ -129,6 +157,7 @@ export default function FeedScreen({ route }) {
                 }}
                 renderItem={renderItem}
                 pagingEnabled
+                // add random number to keyExtractor to force re-render
                 keyExtractor={(item, index) => item.id + '' + index}
                 decelerationRate={'normal'}
                 onEndReached={handleLoadMore}

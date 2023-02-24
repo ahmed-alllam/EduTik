@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { throttle } from "throttle-debounce";
 import { openCommentModal } from '../../../../redux/actions/modal';
 import { useNavigation } from '@react-navigation/core';
-
+// import react-native-share
+import Share from 'react-native-share';
 
 /**
  * Function that renders a component meant to be overlapped on
@@ -69,11 +70,15 @@ export default function PostSingleOverlay({ user, post }) {
     let message = `Check out this video about ${post.description} on EduTik!`;
     let url = "https://edutik.page.link/" + post.id;
 
-    // Sharing.shareAsync(url, {
-    //   dialogTitle: 'Share this short video',
-    //   subject: message,
-    //   message: message,
-    // })
+    const shareOptions = {
+      title: 'Share EduTik video via',
+      message: message,
+      url: url,
+    }
+
+    Share.open(shareOptions)
+      .then((res) => { console.log(res) })
+      .catch((err) => { err && console.log(err); });
   };
   
 

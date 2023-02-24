@@ -12,7 +12,7 @@ export default function ProfilePostList({ posts, onEndReached }) {
                 nestedScrollEnabled
                 data={posts}
                 onEndReached={onEndReached}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item, index) => item.id + '' + index}
                 renderItem={({ item }) => (<ProfilePostListItem item={item} />)}
             />
         </View>

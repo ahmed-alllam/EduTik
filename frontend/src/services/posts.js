@@ -7,19 +7,28 @@ let commentListnerInstance = null
  *
  * @returns {Promise<[<Object>]>} post list if successful.
  */
-export const getFeed = (lastPost) =>
+export const getFeed = ((lastPost, desc=true) =>
   new Promise((resolve, reject) => {
 
     let query = 
       firestore()
       .collection("post")
       .where('verified', '==', true)
-      .orderBy('creation', 'desc')
       .limit(20);
+    
+    if (desc) {
+      query = query.orderBy('creation', 'desc');
+    } else {
+      query = query.orderBy('creation', 'asc');
+    }
 
     if (lastPost != null) {
       console.log('lastPost', lastPost.creation);
-      query = query.startAfter(lastPost.creation);
+      if (desc) {
+        query = query.startAfter(lastPost.creation);
+      } else {
+        query = query.endBefore(lastPost.creation);
+      }    
     }
 
     query.get()
@@ -32,7 +41,47 @@ export const getFeed = (lastPost) =>
         resolve(posts);
       })
       .catch((err) => console.log(err));
-  });
+  }));
+
+
+
+export const getPostsByUserId = (lastPost, uid = auth().currentUser.uid, desc = true) => new Promise((resolve, reject) => {
+    let query = 
+      firestore()
+      .collection("post")
+      .where('creator', '==', uid)
+      .where('verified', '==', true)
+      .limit(20);
+
+    if (desc) {
+      query = query.orderBy('creation', 'desc');
+    } else {
+      query = query.orderBy('creation', 'asc');
+    }
+
+    if (lastPost != null) {
+      console.log('lastPost', lastPost.creation);
+
+      if (desc) {
+        query = query.startAfter(lastPost.creation);
+      } else {
+        query = query.endBefore(lastPost.creation);
+      }
+    }
+
+    query.get()
+      .then((res) => {
+        console.log('§§§§§§§§§§§§§§§§§§§§§§', res.docs.length);
+        let posts = res.docs.map((value) => {
+          const id = value.id;
+          const data = value.data();
+          return { id, ...data };
+        });
+        resolve(posts);
+      })
+      .catch((err) => console.log(err));
+})
+
 
 /**
  * Gets the like state of a user in a specific post
@@ -118,29 +167,3 @@ export const clearCommentListener = () => {
     commentListnerInstance = null
   }
 }
-
-export const getPostsByUserId = (lastPost, uid = auth().currentUser.uid) => new Promise((resolve, reject) => {
-    let query = 
-      firestore()
-      .collection("post")
-      .where('creator', '==', uid)
-      .where('verified', '==', true)
-      .orderBy('creation', 'desc')
-      .limit(20);
-
-    if (lastPost != null) {
-      console.log('lastPost', lastPost.creation);
-      query = query.startAfter(lastPost.creation);
-    }
-
-    query.get()
-      .then((res) => {
-        let posts = res.docs.map((value) => {
-          const id = value.id;
-          const data = value.data();
-          return { id, ...data };
-        });
-        resolve(posts);
-      })
-      .catch((err) => console.log(err));
-})
