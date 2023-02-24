@@ -12,7 +12,12 @@ import { useFonts } from 'expo-font';
 
 import { I18nManager } from 'react-native';
 import * as Updates from 'expo-updates';
-
+import {
+  getFcmToken,
+  requestUserPermission,
+  notificationListener,
+} from './PushController';
+import { useEffect, useState } from 'react';
 
 
 function updateApp() {
@@ -44,7 +49,23 @@ const queryClient = new QueryClient({
 })
 
 export default function App() {
+  const [generatedToken, setGeneratedToken] = useState();
 
+  useEffect(() => {
+    console.log('newly generated', generatedToken);
+  }, [generatedToken]);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const token = await getFcmToken();
+      if (token) {
+        setGeneratedToken(token);
+      }
+    };
+    void fetchToken();
+    void requestUserPermission();
+    void notificationListener();
+  }, []);
 
   updateApp();
 
