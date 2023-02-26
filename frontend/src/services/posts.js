@@ -7,28 +7,23 @@ let commentListnerInstance = null
  *
  * @returns {Promise<[<Object>]>} post list if successful.
  */
-export const getFeed = ((lastPost, desc=true) =>
+export const getFeed = ((lastPost, exceptionPost=null) =>
   new Promise((resolve, reject) => {
-
-    let query = 
+    let query =
       firestore()
-      .collection("post")
-      .where('verified', '==', true)
-      .limit(20);
-    
-    if (desc) {
-      query = query.orderBy('creation', 'desc');
-    } else {
-      query = query.orderBy('creation', 'asc');
-    }
+        .collection("post")
+        .where('verified', '==', true)
+        .limit(20)
+        .orderBy('creation', 'desc');
+
 
     if (lastPost != null) {
       console.log('lastPost', lastPost.creation);
-      if (desc) {
         query = query.startAfter(lastPost.creation);
-      } else {
-        query = query.endBefore(lastPost.creation);
-      }    
+    }
+
+    if (exceptionPost != null) {
+      query = query.where("creation", "!=", exceptionPost);
     }
 
     query.get()
@@ -45,41 +40,49 @@ export const getFeed = ((lastPost, desc=true) =>
 
 
 
-export const getPostsByUserId = (lastPost, uid = auth().currentUser.uid, desc = true) => new Promise((resolve, reject) => {
-    let query = 
-      firestore()
+export const getPostsByUserId = (lastPost, uid = auth().currentUser.uid, exceptionPost=null) => new Promise((resolve, reject) => {
+  let query =
+    firestore()
       .collection("post")
       .where('creator', '==', uid)
       .where('verified', '==', true)
+      .orderBy('creation', 'desc')
       .limit(20);
 
-    if (desc) {
-      query = query.orderBy('creation', 'desc');
-    } else {
-      query = query.orderBy('creation', 'asc');
-    }
+  if (lastPost != null) {
+    console.log('lastPost', lastPost.creation);
 
-    if (lastPost != null) {
-      console.log('lastPost', lastPost.creation);
+    query = query.startAfter(lastPost.creation);
+  }
 
-      if (desc) {
-        query = query.startAfter(lastPost.creation);
-      } else {
-        query = query.endBefore(lastPost.creation);
-      }
-    }
+  if (exceptionPost != null) {
+    // not same creation time
+    query = query.where("creation", "!=", exceptionPost);
+  }
 
-    query.get()
-      .then((res) => {
-        console.log('§§§§§§§§§§§§§§§§§§§§§§', res.docs.length);
-        let posts = res.docs.map((value) => {
-          const id = value.id;
-          const data = value.data();
-          return { id, ...data };
-        });
-        resolve(posts);
-      })
-      .catch((err) => console.log(err));
+  query.get()
+    .then((res) => {
+      let posts = res.docs.map((value) => {
+        const id = value.id;
+        const data = value.data();
+        return { id, ...data };
+      });
+      resolve(posts);
+    })
+    .catch((err) => console.log(err));
+})
+
+export const getPostById = (postId) => new Promise((resolve, reject) => {
+  firestore()
+    .collection("post")
+    .doc(postId)
+    .get()
+    .then((res) => {
+      const id = res.id;
+      const data = res.data();
+      resolve({ id, ...data });
+    })
+    .catch((err) => console.log(err));
 })
 
 
@@ -92,8 +95,8 @@ export const getPostsByUserId = (lastPost, uid = auth().currentUser.uid, desc = 
  */
 export const getLikeById = (postId, uid) =>
   new Promise((resolve, reject) => {
-    
-      firestore()
+
+    firestore()
       .collection("post")
       .doc(postId)
       .collection("likes")
@@ -110,16 +113,16 @@ export const getLikeById = (postId, uid) =>
  */
 export const updateLike = (postId, uid, currentLikeState) => {
   if (currentLikeState) {
-    
-      firestore()
+
+    firestore()
       .collection("post")
       .doc(postId)
       .collection("likes")
       .doc(uid)
       .delete();
   } else {
-    
-      firestore()
+
+    firestore()
       .collection("post")
       .doc(postId)
       .collection("likes")
@@ -142,7 +145,7 @@ export const addComment = (postId, creator, comment) => {
 
 export const commentListner = (postId, setCommentList) => {
   console.log('commentListner', postId);
-  
+
   commentListnerInstance = firestore()
     .collection('post')
     .doc(postId)

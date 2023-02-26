@@ -68,7 +68,7 @@ export default function PostSingleOverlay({ user, post }) {
     // implement share
 
     let message = `Check out this video about ${post.description} on EduTik!`;
-    let url = "https://edutik.page.link/" + post.id;
+    let url = post.shareUrl;
 
     const shareOptions = {
       title: 'Share EduTik video via',
@@ -92,7 +92,7 @@ export default function PostSingleOverlay({ user, post }) {
       <View style={styles.leftContainer}>
         <TouchableOpacity
           onPress={() => navigation.navigate('profileOther', { initialUserId: user?.uid })}>
-          <Image style={styles.avatar} source={{ uri: user?.photoURL }} />
+          <Image style={styles.avatar} source={{ uri: user?.photoURL || 'https://i0.wp.com/researchictafrica.net/wp/wp-content/uploads/2016/10/default-profile-pic.jpg?fit=50%2C50&ssl=1' }} />
         </TouchableOpacity>
 
         <TouchableOpacity

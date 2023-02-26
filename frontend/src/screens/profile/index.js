@@ -53,7 +53,7 @@ export default function ProfileScreen({ navigation, route }) {
             }
         })
 
-    }, [user, lastVisible])
+    }, [lastVisible])
 
     // reset the last visible post when the user changes
     useEffect(() => {

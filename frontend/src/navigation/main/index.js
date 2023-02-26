@@ -64,7 +64,6 @@ export default function Route() {
 
         config: {
             screens: {
-                // go to userPosts screen with initCreation param
                 userPosts: {
                     path: ':postID',
                 }
