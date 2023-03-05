@@ -15,8 +15,8 @@ export const saveMediaToStorage = (media, path) => new Promise((resolve, reject)
             return fileRef.put(blob)
         })
         .then(task => {
-            console.log("success 3: " + task);
-            return task.ref.getDownloadURL()
+            console.log("success 3: " + JSON.stringify( task));
+            return fileRef.getDownloadURL()
         })
         .then(downloadUrl => {
             console.log("success 4: " + downloadUrl);

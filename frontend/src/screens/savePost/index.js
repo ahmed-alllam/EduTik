@@ -41,6 +41,13 @@ export default function SavePostScreen(props) {
             .catch((err) => {
                 console.log(err)
                 setRequestRunning(false)
+
+                navigation.dispatch(StackActions.popToTop())
+                Alert.alert(
+                    'Error',
+                    'Something went wrong. Please try again later.',
+                    [{ text: 'OK' }],
+                );
             })
     }
 
